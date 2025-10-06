@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-primary">
+        <div class="container-fluid justify-content-between">
+            <!--left side elements-->
+            <div class="d-flex">
+                <!--Logo-->
+                <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.html">
+                    <img src="Pictures/logo.png" alt="ERP logo" height="40" loading="lazy" style="margin-top: 2px;">
+                    ERP
+                </a>
+            </div>
+
+            <!--center element-->
+            <ul class="navbar-nav flex-row d-none d-md-flex">
+                <form class="input-group w-auto my-auto d-none d-md-flex">
+                    <input autocomplete="off" type="search" class="form-control rounded" placeholder="search..." style="min-width: 125px; width: 350px;">
+                </form>
+            </ul>
+
+            <!--right element-->
+            <ul class="navbar-nav flex-row">
+                <li class="nav-item dropdown me-3 me-lg-1">
+                    <a data-bs-toggle="dropdown" class="nav-link hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                        <img src ="Pictures/circle_notifications_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="notification bell" height="30" loading="lazy" style="margin-top: 2px;">
+                        <span class="position-absolute top-2 start-5 translate-middle badge rounded-pill bg-danger">10</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="#">notification 1</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">notification 2</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">notification 3</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--everything below the header-->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!--sidebar-->
+            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+                <div id="sidebarMenu" class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" aria-labelledby="sidebarMenuLabel" style="padding-top: 10px; top: 0;">
+                    <div class="position-sticky">
+                        <div class="list-group list-group-flush mx-3 mt-4">
+                            <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="Logistics.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary ">
+                                <span>Logistics</span>
+                            </a>
+                            <a href="SalesAndMarketing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <span>Marketing & Sales</span>
+                            </a>
+                            <a href="Inventory.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <span>Inventory</span>
+                            </a>
+                            <a href="Manufacturing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <span>Manufacturing</span>
+                            </a>
+                            <a href="Settings.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <span>Settings</span>
+                            </a>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <hr>
+                            <a href="Login.html" class="list-group-item list-group-item-action py-2 ripple bg-danger" style="margin-bottom: 2vh;">
+                                <span style="color: white;">Logout</span>
+                            </a>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+
+            <main class = "col-md-9 ms-sm-auto col-lg-10 px-md-4"> 
+                
+                <!--row for cards-->
+                <div class="row">
+                    <h3 style="margin-top: 1vh;">Dashboard</h3>
+                    <!--Revenue card-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Total revenue</h4>
+                                        <p>R0</p>
+                                        <p>-% from last week</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="currency" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Products sold card-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Products Sold</h4>
+                                        <p>0</p>
+                                        <p>-% from last week</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="currency" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Manufacturing Jobs-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Complete Jobs</h4>
+                                        <p>0</p>
+                                        <p>-% from last week</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="currency" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Active Orders-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Active orders</h4>
+                                        <p>0</p>
+                                        <p>-% from last week</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="currency" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--graph and quick actions-->
+                <div class="row "  >
+                    <div class="col-9"> <!--graph-->
+                        <h4 style = "margin-bottom: 2%; margin-top: 2%;"> Sales vs Production Overview </h4>
+                        <div class="card">
+                            <div class="card-body" style="height: 400px; width: autos;" >
+                                <canvas id="myChart"  >
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3"><!--quick action buttons-->
+                        <h4 style = " margin-bottom: 5%; margin-top: 5%;"> Quick Actions </h4>
+                        <div class="vstack gap-5"></div>
+                            <div class="hstack gap-3" style="margin-right: 10px;" >
+                                <button class = "btn btn-outline-secondary" style ="width: 15vw; height: 10vh;">
+                                    <img src="Pictures/add_notes_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
+                                    <br>
+                                    <span style="font-size: 2vh;"> Create Invoice </span>
+                                </button>
+                                <button class = "btn btn-outline-secondary" style =" width: 15vw; height: 10vh;">
+                                    <img src="Pictures/box_add_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
+                                    <br>
+                                    <span style="font-size: 2vh;"> Add Stock </span>
+                                </button>
+                            </div>
+                            <div class="hstack gap-3" style="margin-right: 10px; margin-top: 10px;">
+                                <button class = "btn btn-outline-secondary" style="width: 15vw; height: 10vh;">
+                                    <img src="Pictures/person_add_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
+                                    <br>
+                                    <span style="font-size: 2vh;"> Add Customer </span>
+                                </button>
+                                <button class = "btn btn-outline-secondary" style ="width: 15vw; height: 10vh;">
+                                    <img src="Pictures/add_chart_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
+                                    <br>
+                                    <span style="font-size: 1.7vh;"> Generate Report </span>
+                                </button>
+                            </div>
+
+                        </span> 
+                    </div>
+                </div>
+                <div class="row " style=" width:100%; margin-top: 1%;">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            TEST
+                        </li>
+                        <li class="list-group-item">
+                            TEST
+                        </li>
+                        <li class="list-group-item">
+                            TEST
+                        </li>
+                        <li class="list-group-item">
+                            TEST
+                        </li>
+                        <li class="list-group-item">
+                            TEST
+                        </li>
+                    </ul>
+                </div>
+            </main>
+            <!--Stat cards-->
+            
+        
+        
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous" class="astro-vvvwv3sm"></script>
+    <script src="barChart.js"></script>
+</body>
+</html>
