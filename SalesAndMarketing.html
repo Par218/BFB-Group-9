@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-primary">
+        <div class="container-fluid justify-content-between">
+            <!--left side elements-->
+            <div class="d-flex">
+                <!--Logo-->
+                <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.html">
+                    <img src="Pictures/logo.png" alt="ERP logo" height="40" loading="lazy" style="margin-top: 2px;">
+                    ERP
+                </a>
+            </div>
+
+            <!--center element-->
+            <ul class="navbar-nav flex-row d-none d-md-flex">
+                <form class="input-group w-auto my-auto d-none d-md-flex">
+                    <input autocomplete="off" type="search" class="form-control rounded" placeholder="search..." style="min-width: 125px; width: 350px;">
+                </form>
+            </ul>
+
+            <!--right element-->
+            <ul class="navbar-nav flex-row">
+                <li class="nav-item dropdown me-3 me-lg-1">
+                    <a data-mbd-dropdown-init class="nav-link hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                        <img src ="Pictures/circle_notifications_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="notification bell" height="30" loading="lazy" style="margin-top: 2px;">
+                        <span class="position-absolute top-2 start-5 translate-middle badge rounded-pill bg-danger">10</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="#">notification 1</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">notification 2</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">notification 3</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <!--sidebar-->
+            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+                <div id="sidebarMenu" class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" aria-labelledby="sidebarMenuLabel" style="padding-top: 10px; top: 0;">
+                    <div class="position-sticky">
+                        <div class="list-group list-group-flush mx-3 mt-4">
+                            <a href="index.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary " aria-current="true">
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="Logistics.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary ">
+                                <span>Logistics</span>
+                            </a>
+                            <a href="SalesAndMarketing.html" class="list-group-item list-group-item-action py-2 ripple active">
+                                <span>Marketing & Sales</span>
+                            </a>
+                            <a href="Inventory.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <span>Inventory</span>
+                            </a>
+                            <a href="Manufacturing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <span>Manufacturing</span>
+                            </a>
+                            <a href="Settings.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <span>Settings</span>
+                            </a>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <hr>
+                            <a href="Login.html" class="list-group-item list-group-item-action py-2 ripple bg-danger" style="margin-bottom: 2vh;">
+                                <span style="color: white;">Logout</span>
+                            </a>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+            <main class = "col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+                 <!--row for heading-->
+                <div class="row">
+                    <div class="col" style="margin-top: 2vh;">
+                        <h3>Marketing and Sales</h3>
+                        <h5>Track campaigns, leads and sales performance</h5>
+                    </div>
+                </div>
+
+                <!--row for cards-->
+                <div class="row">
+
+                    <!--Campaign Reach-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Campaign Reach</h4>
+                                        <p>0</p>
+                                        <p>+/- % from yesterday</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="people" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Conversions-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Conversions</h4>
+                                        <p>0</p>
+                                        <p>+/- % from yesterday</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="sales" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Sales Pipeline-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Sales Pipeline</h4>
+                                        <p> R- </p>
+                                        <p>+/- % from yesterday</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="pipe" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--ROI-->
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>ROI</h4>
+                                        <p> - %</p>
+                                        <p>+/- % from yesterday</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <img src=" " alt="ROI" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <!--row for active campaigns and sales pipeline-->
+                <div class="row" style="margin-top: 4vh;">
+                    <div class="col-md-6">
+                        <h3> Active Campaigns</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                        </ul>
+                    </div>
+                        
+                    <div class="col-md-6">
+                        <h3> Sales Pipeline</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                            <li class="list-group-item">
+                                TEST
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+
+            </main>
+        </div>
+    </div>
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
