@@ -1,5 +1,5 @@
 /* data */
-
+//note, remove and replace the js with  SQL data tables
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
 const sales_array=[65, 59, 80, 81, 56, 55];
 const Production_array=[28, 48, 40, 19, 86, 27];

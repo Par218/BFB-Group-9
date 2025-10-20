@@ -197,29 +197,121 @@
                     <div class="col-3"><!--quick action buttons-->
                         <h4 style = " margin-bottom: 5%; margin-top: 5%;"> Quick Actions </h4>
                         <div class="vstack gap-5"></div>
-                            <div class="hstack gap-3" style="margin-right: 10px;" >
-                                <button class = "btn btn-outline-secondary" style ="width: 15vw; height: 10vh;">
+                            <div class="hstack gap-3" style="margin-right: 10px;" > 
+                                <!--create invoice button-->
+                                <button class = "btn btn-outline-secondary" style ="width: 15vw; height: 10vh;" data-bs-toggle="modal" data-bs-target="#Invoice-modal">
                                     <img src="Pictures/add_notes_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
                                     <br>
                                     <span style="font-size: 2vh;"> Create Invoice </span>
                                 </button>
-                                <button class = "btn btn-outline-secondary" style =" width: 15vw; height: 10vh;">
+                                <!--modal for creating invoice-->
+                                <div class="modal fade" id="Invoice-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Invoice Creator</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                stuff
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">
+                                                    Okay
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--add stock button-->
+                                <button class = "btn btn-outline-secondary" style =" width: 15vw; height: 10vh;" data-bs-toggle="modal" data-bs-target="#Stock-modal">
                                     <img src="Pictures/box_add_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
                                     <br>
                                     <span style="font-size: 2vh;"> Add Stock </span>
                                 </button>
+                                <!--modal for adding stock-->
+                                <div class="modal fade" id="Stock-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Stock Addition</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                stock stuff
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">
+                                                    Okay
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="hstack gap-3" style="margin-right: 10px; margin-top: 10px;">
-                                <button class = "btn btn-outline-secondary" style="width: 15vw; height: 10vh;">
+                                <!--add customer button-->
+                                <button class = "btn btn-outline-secondary" style="width: 15vw; height: 10vh;" data-bs-toggle="modal" data-bs-target="#Customer-modal">
                                     <img src="Pictures/person_add_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
                                     <br>
                                     <span style="font-size: 2vh;"> Add Customer </span>
                                 </button>
-                                <button class = "btn btn-outline-secondary" style ="width: 15vw; height: 10vh;">
+                                <!--modal for adding customer-->
+                                <div class="modal fade" id="Customer-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Customer Addition</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                customer stuff
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">
+                                                    Okay
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--generate report button-->
+                                <button class = "btn btn-outline-secondary" style ="width: 15vw; height: 10vh;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     <img src="Pictures/add_chart_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="invoice-add" height="30">
                                     <br>
                                     <span style="font-size: 1.7vh;"> Generate Report </span>
                                 </button>
+                                <!--modal for generating a report-->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Report Generation</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                stuff
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">
+                                                    Okay
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </span> 
