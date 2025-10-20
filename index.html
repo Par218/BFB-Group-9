@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar sticky-top navbar-expand-lg bg-primary">
         <div class="container-fluid justify-content-between">
-            <!--left side elements-->
+            <!--left sidebar-->
             <div class="d-flex">
                 <!--Logo-->
                 <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.html">
@@ -206,14 +206,162 @@
                                 </button>
                                 <!--modal for creating invoice-->
                                 <div class="modal fade" id="Invoice-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Invoice Creator</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                stuff
+                                                <!--invoice number, date and company information-->
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <!--Invoice number-->
+                                                                <label for="invoiceNo" class="form-label">Invoice Number</label>
+                                                                <input class="form-control" id="invoiceNo" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                            </div>
+                                                            <div class="col">
+                                                                <label for="invoiceDate" class="form-label">Invoice Date</label>
+                                                                <input class="form-control" id ="invoiceDate" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                                    <div class="col-6"></div>
+                                                        <div class="row">
+                                                            
+                                                        </div>
+                                                    
+                                                </div> 
+                                                <br>
+                                                <!--customer information-->
+                                                <div class="row">
+                                                    <h5> Customer Info </h5>
+                                                    <div class="row">
+                                                        <!--existing customer base-->
+                                                        <label for="customerSelect" class="form-label">Customer</label>
+                                                        <select class="form-select" aria-label="Default select example" id="customerSelect" style="width: 40%;">
+                                                            <option selected></option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="col-6">Username: </div>
+                                                            <div class="col-6">
+                                                                <input class="form-control" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="col-6">Cell No: </div>
+                                                            <div class="col-6">
+                                                                <input class="form-control" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                            </div>
+                                                        </div>  
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--item list-->
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <div class="row">
+                                                            <h4 class="text-left" style="margin-top: 2vh;"> Item Details </h4><!--title line-->
+                                                            <div class="col-8">
+                                                                <!--item search and quantity inputs-->
+                                                                <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search inventory..." style="width: 40%;"> 
+                                                                <input class="form-control" type="text" placeholder="Quantity" style="width: 40%;">    
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <!--Once you search for an item and select its quantity you press this to add the item to the list below-->
+                                                                <button class="btn btn-primary">
+                                                                    +  Add Item
+                                                                </button>
+                                                            </div>
+                                                            
+                                                            
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <!--table with selected items-->
+                                                            <table class="table caption-top" style="margin-top: 1vh;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">SKU</th>
+                                                                        <th scope="col">Item Name</th>
+                                                                        <th scope="col">Category</th>
+                                                                        <th scope="col">Quantity</th>
+                                                                        <th scope="col">Status</th>
+                                                                        <th scope="col">Amount</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">SKU-000</th>
+                                                                        <td> - </td>
+                                                                        <td> - </td>
+                                                                        <td> 0 </td>
+                                                                        <td> - </td>
+                                                                        <td> R0 </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">SKU-000</th>
+                                                                        <td> - </td>
+                                                                        <td> - </td>
+                                                                        <td> 0 </td>
+                                                                        <td> - </td>
+                                                                        <td> R0 </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">SKU-000</th>
+                                                                        <td> - </td>
+                                                                        <td> - </td>
+                                                                        <td> 0 </td>
+                                                                        <td> - </td>
+                                                                        <td> R0 </td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">SKU-000</th>
+                                                                        <td> - </td>
+                                                                        <td> - </td>
+                                                                        <td> 0 </td>
+                                                                        <td> - </td>
+                                                                        <td> R0 </td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">SKU-000</th>
+                                                                        <td> - </td>
+                                                                        <td> - </td>
+                                                                        <td> 0 </td>
+                                                                        <td> - </td>
+                                                                        <td> R0 </td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">SKU-000</th>
+                                                                        <td> - </td>
+                                                                        <td> - </td>
+                                                                        <td> 0 </td>
+                                                                        <td> - </td>
+                                                                        <td> R0 </td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
