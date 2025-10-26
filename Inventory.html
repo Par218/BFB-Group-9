@@ -50,51 +50,60 @@
     <div class="container-fluid">
         <div class="row">
             <!--sidebar-->
-            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-                <div id="sidebarMenu" class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" aria-labelledby="sidebarMenuLabel" style="padding-top: 10px; top: 0;">
-                    <div class="position-sticky">
+            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary"> 
+                <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel"> 
+                    <div class="offcanvas-header"> 
+                        <h5 class="offcanvas-title" id="sidebarMenuLabel">ERP</h5> 
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+                    </div> 
+                    <div class="offcanvas-body d-md-flex flex-column "> 
                         <div class="list-group list-group-flush mx-3 mt-4">
-                            <a href="index.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary " aria-current="true">
+                            <a href="index.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary" aria-current="true">
+                                <img src="Pictures/Dashboard black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Dashboard</span>
                             </a>
                             <a href="Logistics.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary ">
+                                <img src="Pictures/logistics black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Logistics</span>
                             </a>
                             <a href="SalesAndMarketing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <img src="Pictures/campaign_56dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Marketing & Sales</span>
                             </a>
                             <a href="Inventory.html" class="list-group-item list-group-item-action py-2 ripple active">
+                                <img src="Pictures/shelves_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Inventory</span>
                             </a>
                             <a href="Manufacturing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
+                                <img src="Pictures/factory black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Manufacturing</span>
-                            </a>
-                            <a href="Settings.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
-                                <span>Settings</span>
-                            </a>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <hr>
-                            <a href="Login.html" class="list-group-item list-group-item-action py-2 ripple bg-danger" style="margin-bottom: 2vh;">
-                                <span style="color: white;">Logout</span>
-                            </a>
+                            </a>           
                         </div>
-                    </div>
-        
-                </div>
+                        <hr>
+                        <div class="list-group list-group-flush mx-4 mt-1">
+                            <ul class="navbar-nav flex-row">
+                                <li class="nav-item dropdown me-3 me-lg-1">
+                                    <a data-bs-toggle="dropdown" class="nav-link hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                                        <img src ="Pictures/account_circle_62dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="profile picture" height="30" loading="lazy" style="margin-top: 2px;">
+                                        <span>Account</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                        <li>
+                                            <a class="dropdown-item list-group-item-action" href="#">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item list-group-item-action" href="#">Settings</a>
+                                        </li>
+                                        <hr>
+                                        <li>
+                                            <a class="dropdown-item list-group-item-action" href="Login.html">Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
+                </div> 
             </div>
             <main class = "col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
