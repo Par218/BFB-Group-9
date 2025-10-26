@@ -7,46 +7,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar sticky-top navbar-expand-lg bg-primary">
-        <div class="container-fluid justify-content-between">
-            <!--left side elements-->
-            <div class="d-flex">
-                <!--Logo-->
-                <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.html">
-                    <img src="Pictures/logo.png" alt="ERP logo" height="40" loading="lazy" style="margin-top: 2px;">
-                    ERP
-                </a>
-            </div>
-
-            <!--center element-->
-            <ul class="navbar-nav flex-row d-none d-md-flex">
-                <form class="input-group w-auto my-auto d-none d-md-flex">
-                    <input autocomplete="off" type="search" class="form-control rounded" placeholder="search..." style="min-width: 125px; width: 350px;">
-                </form>
-            </ul>
-
-            <!--right element-->
-            <ul class="navbar-nav flex-row">
-                <li class="nav-item dropdown me-3 me-lg-1">
-                    <a data-mbd-dropdown-init class="nav-link hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-                        <img src ="Pictures/circle_notifications_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="notification bell" height="30" loading="lazy" style="margin-top: 2px;">
-                        <span class="position-absolute top-2 start-5 translate-middle badge rounded-pill bg-danger">10</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <li>
-                            <a class="dropdown-item" href="#">notification 1</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">notification 2</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">notification 3</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow" data-bs-theme="light">
+        <!--left sidebar-->
+        <div class="d-flex">
+            <!--Logo-->
+            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.html">
+                <img src="Pictures/logo.png" alt="ERP logo" height="40" loading="lazy" style="margin-top: 2px; margin-left: 10px;">
+                <h4 style="margin-top: 7px; margin-left: 3px;">ERP</h4>
+            </a>
+        </div> 
+        <ul class="navbar-nav flex-row d-md-none"> <!--off canvas list that shows up when the screen is made smaller-->
+            <li class="nav-item text-nowrap"> 
+                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"> 
+                    <img src="Pictures/list_62dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="40" loading="lazy" style="margin-top: 2px; margin-left: 10px;"> 
+                </button> 
+            </li> 
+        </ul>
+    </header>
     <div class="container-fluid">
         <div class="row">
             <!--sidebar-->
