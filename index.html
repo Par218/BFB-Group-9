@@ -9,9 +9,8 @@
 </head>
 <body>
     <header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow" data-bs-theme="light">
-        <!--left sidebar-->
         <div class="d-flex">
-            <!--Logo-->
+            <!--Company Logo-->
             <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.html">
                 <img src="Pictures/logo.png" alt="ERP logo" height="40" loading="lazy" style="margin-top: 2px; margin-left: 10px;">
                 <h4 style="margin-top: 7px; margin-left: 3px;">ERP</h4>
@@ -25,8 +24,7 @@
             </li> 
         </ul>
     </header>
-    <!--everything below the header-->
-    <div class="container-fluid">
+    <div class="container-fluid"><!--everything below the header-->
         <div class="row">
             <!--sidebar-->
             <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary"> 
@@ -84,7 +82,7 @@
                     </div> 
                 </div> 
             </div>
-            <main class = "col-md-9 ms-sm-auto col-lg-10 px-md-4"> 
+            <main class = "col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <!--row for cards-->
                 <div class="row">
                     <h3 style="margin-top: 1vh;">Dashboard</h3>
@@ -94,8 +92,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h4>Total revenue</h4>
-                                        <p>R0</p>
+                                        <h5>Total revenue</h5>
+                                        <h4>R0</h4>
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
@@ -111,8 +109,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h4>Products Sold</h4>
-                                        <p>0</p>
+                                        <h5>Products Sold</h5>
+                                        <h4>0</h4>
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
@@ -128,8 +126,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h4>Complete Jobs</h4>
-                                        <p>0</p>
+                                        <h5>Complete Jobs</h5>
+                                        <h4>0</h4>
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
@@ -145,8 +143,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h4>Active orders</h4>
-                                        <p>0</p>
+                                        <h5>Active orders</h5>
+                                        <h4>0</h4>
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
@@ -162,15 +160,13 @@
                         <h4 style = "margin-bottom: 2%; margin-top: 2%;"> Sales vs Production Overview </h4>
                         <div class="card">
                             <div class="card-body" style="height: 400px; width: autos;" >
-                                <canvas id="myChart"  >
-
-                                </canvas>
+                                <img src="Pictures/graph placeholder.png" alt="graph placeholder" class="img-fluid" style="width: 100%; height: 100%;">
                             </div>
                         </div>
                     </div>
                     <div class="col-3"><!--quick action buttons-->
                         <h4 style = " margin-bottom: 5%; margin-top: 5%;"> Quick Actions </h4>
-                        <div class="vstack gap-5"></div>
+                        <div class="vstack gap-2">
                             <div class="hstack gap-3" style="margin-right: 10px;" > 
                                 <!--create invoice button-->
                                 <button class = "btn btn-outline-secondary" style ="width: 20vw; height: 20vh;" data-bs-toggle="modal" data-bs-target="#Invoice-modal">
@@ -200,15 +196,8 @@
                                                                 <label for="invoiceDate" class="form-label">Invoice Date</label>
                                                                 <input class="form-control" id ="invoiceDate" type="text" placeholder="---" aria-label="Disabled input example" disabled>
                                                             </div>
-                                                        </div>
-                                                        
-                                                        
-                                                    </div>
-                                                    <div class="col-6"></div>
-                                                        <div class="row">
-                                                            
-                                                        </div>
-                                                    
+                                                        </div>   
+                                                    </div> 
                                                 </div> 
                                                 <br>
                                                 <!--customer information-->
@@ -321,7 +310,6 @@
                                             <div class="modal-body">
                                                 <label for="stockName" class="form-label">Item Name</label>
                                                 <input class = "form-control" type="text" placeholder="..." id="stockName">
-                                                
                                                 <div class="row" style="margin-top: 2%;">
                                                     <div class="col-6">
                                                         <label for = "stockCategory" class="form-label">Category</label>
@@ -342,15 +330,14 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <label for = "stockCostPrice" class="form-label">Cost Price</label>
-                                                    <input class="form-control" type="text" placeholder="R" id="stockCostPrice">
+                                                    <input class="form-control" type="number" placeholder="R" id="stockCostPrice">
                                                 </div>
                                                 <!--remember to change it to only allow numbers to be input-->
                                                 <div class="row">
                                                     <label for = "stockSellPrice" class="form-label">Selling Price</label>
-                                                    <input class="form-control" type="text" placeholder="R" id="stockSellPrice">
+                                                    <input class="form-control" type="number" placeholder="R" id="stockSellPrice">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -423,7 +410,6 @@
                                                     <option value="2">Two</option>
                                                     <option value="3">Three</option>
                                                 </select>
-
                                                 <div class="row" style="margin-top: 2%;">
                                                     <div class="col-6">
                                                         <label for = "startDate" class="form-label">Start Date</label>
@@ -458,7 +444,7 @@
                                 </div>
                             </div>
 
-                        </span> 
+                        </div> 
                     </div>
                 </div>
                 <div class="row " style=" width:100%; margin-top: 1%;">
