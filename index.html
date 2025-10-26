@@ -123,7 +123,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src=" " alt="currency" height="40">
+                                        <img src="Pictures/money-bag-south-african-rand-icon.png" alt="currency" height="40">
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src=" " alt="currency" height="40">
+                                        <img src="Pictures/shopping basket.svg" alt="currency" height="40">
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src=" " alt="currency" height="40">
+                                        <img src="Pictures/order_approve_56dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" alt="currency" height="40">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src=" " alt="currency" height="40">
+                                        <img src="Pictures/order_play_56dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" alt="currency" height="40">
                                     </div>
                                 </div>
                             </div>
@@ -273,23 +273,23 @@
                                                 </div>
                                                 <!--item list-->
                                                 <div class="row">
+                                                    <h4 class="text-left" style="margin-top: 2vh;"> Item Details </h4><!--title line-->
                                                     <div class="row">
-                                                        <div class="row">
-                                                            <h4 class="text-left" style="margin-top: 2vh;"> Item Details </h4><!--title line-->
+                                                        <div class="row">                                                        
                                                             <div class="col-8">
                                                                 <!--item search and quantity inputs-->
-                                                                <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search inventory..." style="width: 40%;"> 
-                                                                <input class="form-control" type="text" placeholder="Quantity" style="width: 40%;">    
+                                                                <div class="input-group mb-5">
+                                                                    <input type="text" class="form-control" placeholder="Search" aria-label="Username" id="searchInvoice">
+                                                                    
+                                                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="Server" id="quantityInvoice">
+                                                                </div>                                                                 
                                                             </div>
                                                             <div class="col-4">
                                                                 <!--Once you search for an item and select its quantity you press this to add the item to the list below-->
                                                                 <button class="btn btn-primary">
-                                                                    +  Add Item
+                                                                    + Add Item
                                                                 </button>
                                                             </div>
-                                                            
-                                                            
-
                                                         </div>
                                                         <div class="row">
                                                             <!--table with selected items-->
@@ -328,7 +328,6 @@
                                                                         <td> 0 </td>
                                                                         <td> - </td>
                                                                         <td> R0 </td>
-
                                                                     </tr>
                                                                     <tr>
                                                                         <th scope="row">SKU-000</th>
@@ -337,7 +336,6 @@
                                                                         <td> 0 </td>
                                                                         <td> - </td>
                                                                         <td> R0 </td>
-
                                                                     </tr>
                                                                     <tr>
                                                                         <th scope="row">SKU-000</th>
@@ -346,7 +344,6 @@
                                                                         <td> 0 </td>
                                                                         <td> - </td>
                                                                         <td> R0 </td>
-
                                                                     </tr>
                                                                     <tr>
                                                                         <th scope="row">SKU-000</th>
@@ -355,7 +352,6 @@
                                                                         <td> 0 </td>
                                                                         <td> - </td>
                                                                         <td> R0 </td>
-
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -364,11 +360,11 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
                                                 <button type="button" class="btn btn-primary">
-                                                    Okay
+                                                    Submit
                                                 </button>
                                             </div>
                                         </div>
@@ -389,20 +385,53 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                stock stuff
+                                                <label for="stockName" class="form-label">Item Name</label>
+                                                <input class = "form-control" type="text" placeholder="..." id="stockName">
+                                                
+                                                <div class="row" style="margin-top: 2%;">
+                                                    <div class="col-6">
+                                                        <label for = "stockCategory" class="form-label">Category</label>
+                                                        <select class="form-select" aria-label="Default select example" id="stockCategory">
+                                                            <option selected></option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for = "stockUnits" class="form-label">Units</label>
+                                                        <select class="form-select" aria-label="Default select example" id="stockUnits">
+                                                            <option selected></option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <label for = "stockCostPrice" class="form-label">Cost Price</label>
+                                                    <input class="form-control" type="text" placeholder="R" id="stockCostPrice">
+                                                </div>
+                                                <!--remember to change it to only allow numbers to be input-->
+                                                <div class="row">
+                                                    <label for = "stockSellPrice" class="form-label">Selling Price</label>
+                                                    <input class="form-control" type="text" placeholder="R" id="stockSellPrice">
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                    Cancel
                                                 </button>
                                                 <button type="button" class="btn btn-primary">
-                                                    Okay
+                                                    Submit
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="hstack gap-3" style="margin-right: 10px; margin-top: 10px;">
                                 <!--add customer button-->
                                 <button class = "btn btn-outline-secondary" style="width: 15vw; height: 10vh;" data-bs-toggle="modal" data-bs-target="#Customer-modal">
@@ -419,14 +448,21 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                customer stuff
+                                                <label for="customerName" class="form-label">Customer Name</label>
+                                                <input class = "form-control" type="text" id="customerName">
+
+                                                <label for="cellNo" class="form-label">Cell No.</label>
+                                                <input class = "form-control" type="tel">
+
+                                                <label for="addressCustomer" class="form-label">Address</label>
+                                                <textarea class="form-control" id="addressCustomer" rows="3"></textarea>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
                                                 <button type="button" class="btn btn-primary">
-                                                    Okay
+                                                    Submit
                                                 </button>
                                             </div>
                                         </div>
@@ -447,14 +483,41 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                stuff
+                                                <label for="reportType" class="form-label">Type</label>
+                                                <select class="form-select" aria-label="Default select example" id="reportType">
+                                                    <option selected></option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+
+                                                <div class="row" style="margin-top: 2%;">
+                                                    <div class="col-6">
+                                                        <label for = "startDate" class="form-label">Start Date</label>
+                                                        <select class="form-select" aria-label="Start Date" id="startDate">
+                                                            <option selected></option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for = "endDate" class="form-label">End Date</label>
+                                                        <select class="form-select" aria-label="End Date" id="endDate">
+                                                            <option selected></option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
                                                 <button type="button" class="btn btn-primary">
-                                                    Okay
+                                                    Submit
                                                 </button>
                                             </div>
                                         </div>
