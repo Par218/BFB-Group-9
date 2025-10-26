@@ -74,7 +74,7 @@
                                 <img src="Pictures/shelves_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Inventory</span>
                             </a>
-                            <a href="Manufacturing.html" class="list-group-item list-group-item-action py-2 ripple active">
+                            <a href="Manufacturing.html" class="list-group-item list-group-item-action py-2 ripple active" style="border-radius: 12px;">
                                 <img src="Pictures/factory black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Manufacturing</span>
                             </a>           
@@ -177,8 +177,36 @@
                 </div>
 
                 <!--manufacturing jobs-->
-                <div class="row" style="margin-top: 4vh;">
+                <div class="row" style="margin-top: 4vh; width: auto;">
                     <h4> Manufacturing Jobs </h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row" ><!--production plan ID and due date(based on end date)-->
+                                <div class="col-10" >
+                                    <span > Plan ID </span>
+                                </div>
+                                <div class="col-2"> Due : end date</div>
+                            </div> 
+                            <div class="row"  style=" margin-top: 1%;">
+                                <h5> Product ID </h5>
+                            </div> <!--product name-->
+                            <div class="row" style="width: 5%; margin-top: 0.5%;">
+                                <span class="badge bg-success">status</span>
+                            </div> <!--progress status-->
+                            <div class="row"  style=" margin-top: 1%;"> <!--progress bar(based on start and end date)-->
+                                <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style=" margin-top: 1%;">
+                                    <div class="progress-bar" style="width: 25%;">25%</div>
+                                </div>
+                                <span> 25% complete</span>
+                            </div>
+                            <div class="row"> <!--details and progress changer-->
+                                <div class="col" style="margin-top: 1%;">
+                                    <button type="button" class="btn btn-tertiary btn-outline-secondary"> View Details</button>
+                                    <button type="button" class="btn btn-primary"> Update Progress </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     
                 </div>
