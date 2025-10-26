@@ -201,8 +201,75 @@
                             </div>
                             <div class="row"> <!--details and progress changer-->
                                 <div class="col" style="margin-top: 1%;">
-                                    <button type="button" class="btn btn-tertiary btn-outline-secondary"> View Details</button>
-                                    <button type="button" class="btn btn-primary"> Update Progress </button>
+                                    <button type="button" class="btn btn-tertiary btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#viewDetails"> View Details</button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#progressUpdate"> Update Progress </button>
+
+                                    <!--modals for details and progress-->
+                                    <div class="modal fade" id="viewDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Details</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <span> Planned by :  </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span> Planned Quantity : </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span> Start Date : </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span> End Date : </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span> Current Status : </span>
+                                                    </div>     
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="progressUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Job Progress</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <span> </span>
+                                                    </div>
+                                                    <label for="reportType" class="form-label">Job status</label>
+                                                    <select class="form-select" aria-label="Default select example" id="reportType">
+                                                        <option selected></option>
+                                                        <option value="1">In progress</option>
+                                                        <option value="2">Completed</option>
+                                                        <option value="3">Canceled</option>
+                                                    </select>
+                                                    <div class="row" style="margin-top: 2%;">
+                                                    </div>
+                                                </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
