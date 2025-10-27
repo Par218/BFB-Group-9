@@ -1,3 +1,7 @@
+
+
+
+
 # Inventory Hub ERP System
 
 A comprehensive web-based ERP system for inventory management, built with HTML, Bootstrap, JavaScript, and SQLite.
