@@ -25,7 +25,7 @@ A comprehensive web-based ERP system for inventory management, built with HTML, 
 
 ### Entity Relationship Diagram (ERD)
 
-![Description of your image](ERD.jpeg)
+![ERD Diagram](Pictures/ERD.jpeg)
 
 
 
