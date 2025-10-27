@@ -92,7 +92,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h5>Total revenue</h5>
+                                        <h6>Total revenue</h6>
                                         <h4>R0</h4>
                                         <p>-% from last week</p>
                                     </div>
@@ -109,7 +109,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h5>Products Sold</h5>
+                                        <h6>Products Sold</h6>
                                         <h4>0</h4>
                                         <p>-% from last week</p>
                                     </div>
@@ -126,7 +126,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h5>Complete Jobs</h5>
+                                        <h6>Complete Jobs</h6>
                                         <h4>0</h4>
                                         <p>-% from last week</p>
                                     </div>
@@ -143,7 +143,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h5>Active orders</h5>
+                                        <h6>Active orders</h6>
                                         <h4>0</h4>
                                         <p>-% from last week</p>
                                     </div>
@@ -190,11 +190,11 @@
                                                             <div class="col">
                                                                 <!--Invoice number-->
                                                                 <label for="invoiceNo" class="form-label">Invoice Number</label>
-                                                                <input class="form-control" id="invoiceNo" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                                <input class="form-control" id="invoiceNo" type="text" placeholder="01" aria-label="Disabled input example" disabled>
                                                             </div>
                                                             <div class="col">
                                                                 <label for="invoiceDate" class="form-label">Invoice Date</label>
-                                                                <input class="form-control" id ="invoiceDate" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                                <input class="form-control" id ="invoiceDate" type="text" placeholder="2025/10/27" aria-label="Disabled input example" disabled>
                                                             </div>
                                                         </div>   
                                                     </div> 
@@ -208,14 +208,20 @@
                                                         <label for="customerSelect" class="form-label">Customer</label>
                                                         <select class="form-select" aria-label="Default select example" id="customerSelect" style="width: 40%;">
                                                             <option selected></option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="1">John Doe</option>
+                                                            <option value="2">Jane Doe</option>
+                                                            <option value="3">ABC Industries</option>
+                                                            <option value="4">Electric Corp</option>
                                                         </select>
+                                                        <div class="col">
+                                                            <button class = "btn btn-primary" style="width: 10vw; height: 6vh;" data-bs-toggle="modal" data-bs-target="#Customer-modal">
+                                                                <span style="font-size: 2vh;"> + Add Customer </span>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-6">
-                                                            <div class="col-6">Username: </div>
+                                                            <div class="col-6">Customer Name: </div>
                                                             <div class="col-6">
                                                                 <input class="form-control" type="text" placeholder="---" aria-label="Disabled input example" disabled>
                                                             </div>
@@ -269,12 +275,19 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <th scope="row">SKU-000</th>
-                                                                        <td> - </td>
-                                                                        <td> - </td>
-                                                                        <td> 0 </td>
-                                                                        <td> - </td>
-                                                                        <td> R0 </td>
+                                                                        <th scope="row">SKU-001</th>
+                                                                        <td> Cream Donut </td>
+                                                                        <td> Donuts </td>
+                                                                        <td> 10 </td>
+                                                                        <td> <span class="badge bg-success"> available </span> </td>
+                                                                        <td> R150 </td>
+                                                                    </tr>                                                                  <tr>
+                                                                        <th scope="row">SKU-002</th>
+                                                                        <td> Chocolate Chip </td>
+                                                                        <td> Cookies </td>
+                                                                        <td> 20 </td>
+                                                                        <td> <span class="badge bg-warning"> limited </span> </td>
+                                                                        <td> R200 </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -315,18 +328,19 @@
                                                         <label for = "stockCategory" class="form-label">Category</label>
                                                         <select class="form-select" aria-label="Default select example" id="stockCategory">
                                                             <option selected></option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="1">Donuts</option>
+                                                            <option value="2">Cookies</option>
+                                                            <option value="3">Cakes</option>
+                                                            <option value="3">Bread</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for = "stockUnits" class="form-label">Units</label>
                                                         <select class="form-select" aria-label="Default select example" id="stockUnits">
                                                             <option selected></option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="1">R/unit</option>
+                                                            <option value="2">R/kg</option>
+                                                            <option value="3">R/ton</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -396,7 +410,7 @@
                                 </button>
                                 <!--modal for generating a report-->
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Report Generation</h1>
@@ -406,27 +420,53 @@
                                                 <label for="reportType" class="form-label">Type</label>
                                                 <select class="form-select" aria-label="Default select example" id="reportType">
                                                     <option selected></option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option value="1">Production Progress Report</option>
+                                                    <option value="2">Marketing Analytics Report</option>
+                                                    <option value="3">Product Report</option>
                                                 </select>
                                                 <div class="row" style="margin-top: 2%;">
-                                                    <div class="col-6">
+                                                    <div class="col-2">
                                                         <label for = "startDate" class="form-label">Start Date</label>
-                                                        <select class="form-select" aria-label="Start Date" id="startDate">
+                                                        <input class = "form-control" type="number" placeholder="..." id="startDate">
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <label for = "startMonth" class="form-label">Start Month</label>
+                                                        <select class="form-select" aria-label="Start Date" id="startMonth">
                                                             <option selected></option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="1">January</option>
+                                                            <option value="2">February</option>
+                                                            <option value="3">March</option>
+                                                            <option value="1">April</option>
+                                                            <option value="2">May</option>
+                                                            <option value="3">June</option>
+                                                            <option value="1">July</option>
+                                                            <option value="2">August</option>
+                                                            <option value="3">September</option>
+                                                            <option value="1">October</option>
+                                                            <option value="2">November</option>
+                                                            <option value="3">December</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-2">
                                                         <label for = "endDate" class="form-label">End Date</label>
-                                                        <select class="form-select" aria-label="End Date" id="endDate">
+                                                        <input class = "form-control" type="number" placeholder="..." id="endDate">
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <label for = "endMonth" class="form-label">End Month</label>
+                                                        <select class="form-select" aria-label="Start Date" id="endMonth">
                                                             <option selected></option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="1">January</option>
+                                                            <option value="2">February</option>
+                                                            <option value="3">March</option>
+                                                            <option value="1">April</option>
+                                                            <option value="2">May</option>
+                                                            <option value="3">June</option>
+                                                            <option value="1">July</option>
+                                                            <option value="2">August</option>
+                                                            <option value="3">September</option>
+                                                            <option value="1">October</option>
+                                                            <option value="2">November</option>
+                                                            <option value="3">December</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -453,28 +493,42 @@
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-10">
-                                    <h6> Order ID</h6>
-                                    <span> Customer Name </span>
+                                    <h6> ORD-001</h6>
+                                    <span> John Doe </span>
                                 </div>
                                 <div class="col-1">
-                                    <span> R- </span>
+                                    <span> R50 </span>
                                 </div>
                                 <div class="col-1">
-                                    <span class="badge bg-success"> Order Status</span>
+                                    <span class="badge bg-success"> completed </span>
                                 </div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-10">
-                                    <h6> Order ID</h6>
-                                    <span> Customer Name </span>
+                                    <h6> ORD-002</h6>
+                                    <span>  ABC Industries </span>
                                 </div>
                                 <div class="col-1">
-                                    <span> R- </span>
+                                    <span> R200 </span>
                                 </div>
                                 <div class="col-1">
-                                    <span class="badge bg-success"> Order Status</span>
+                                    <span class="badge bg-warning"> pending </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h6> ORD-003</h6>
+                                    <span>  Jane Doe </span>
+                                </div>
+                                <div class="col-1">
+                                    <span> R50 </span>
+                                </div>
+                                <div class="col-1">
+                                    <span class="badge bg-danger"> canceled </span>
                                 </div>
                             </div>
                         </li>
