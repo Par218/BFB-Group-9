@@ -118,3 +118,8 @@ The application works with all modern browsers that support HTML5, CSS3, and ES6
 - Edge 90+
 
 Note: This is a static HTML application. For production use, you would need to add backend functionality for database connectivity and form processing.
+
+## References
+
+<a href="https://www.flaticon.com/free-icons/inventory-management" title="inventory-management icons">Inventory-management icons created by Freepik - Flaticon</a>
+
