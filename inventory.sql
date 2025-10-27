@@ -5,123 +5,118 @@
 PRAGMA foreign_keys = ON;
 
 -- Drop tables if they exist (for clean setup)
-IF OBJECT_ID('Order_Items', 'U') IS NOT NULL DROP TABLE Order_Items;
-IF OBJECT_ID('Shipment', 'U') IS NOT NULL DROP TABLE Shipment;
-IF OBJECT_ID('Inventory', 'U') IS NOT NULL DROP TABLE Inventory;
-IF OBJECT_ID('Manufacturing_Job', 'U') IS NOT NULL DROP TABLE Manufacturing_Job;
-IF OBJECT_ID('Sales_Order', 'U') IS NOT NULL DROP TABLE Sales_Order;
-IF OBJECT_ID('Customer', 'U') IS NOT NULL DROP TABLE Customer;
-IF OBJECT_ID('Employee', 'U') IS NOT NULL DROP TABLE Employee;
-IF OBJECT_ID('SME_Company', 'U') IS NOT NULL DROP TABLE SME_Company;
-IF OBJECT_ID('Product', 'U') IS NOT NULL DROP TABLE Product;
-IF OBJECT_ID('Category', 'U') IS NOT NULL DROP TABLE Category;
-IF OBJECT_ID('Units', 'U') IS NOT NULL DROP TABLE Units;
-IF OBJECT_ID('Location', 'U') IS NOT NULL DROP TABLE Location;
-IF OBJECT_ID('Person', 'U') IS NOT NULL DROP TABLE Person;
+DROP TABLE IF EXISTS Order_Items;
+DROP TABLE IF EXISTS Shipment;
+DROP TABLE IF EXISTS Inventory;
+DROP TABLE IF EXISTS Manufacturing_Job;
+DROP TABLE IF EXISTS Sales_Order;
+DROP TABLE IF EXISTS Customer;
+DROP TABLE IF EXISTS Employee;
+DROP TABLE IF EXISTS SME_Company;
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS Units;
+DROP TABLE IF EXISTS Location;
+DROP TABLE IF EXISTS Person;
 
 -- Create Person table
 CREATE TABLE Person (
-    person_id INT IDENTITY(1,1) PRIMARY KEY,
-    username NVARCHAR(50) NOT NULL UNIQUE,
-    email NVARCHAR(100) NOT NULL UNIQUE,
-    password_hash NVARCHAR(MAX) NOT NULL,
-    user_type NVARCHAR(20) NOT NULL,
-    created_at DATETIME DEFAULT GETDATE(),
-    CONSTRAINT valid_user_type CHECK (user_type IN ('Employee', 'Customer', 'SME_Company'))
+    person_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    user_type TEXT NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT valid_user_type CHECK (user_type IN ('employee', 'customer', 'sme_company'))
 );
 
 -- Create Customer table
 CREATE TABLE Customer (
-    customer_id INT IDENTITY(1,1) PRIMARY KEY,
-    person_id INT NOT NULL,
-    first_name NVARCHAR(50) NOT NULL,
-    last_name NVARCHAR(50) NOT NULL,
-    phone_number NVARCHAR(20),
-    created_at DATETIME DEFAULT GETDATE(),
+    customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    phone_number TEXT,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (person_id) REFERENCES Person(person_id) ON DELETE CASCADE
 );
 
 -- Create Employee table
 CREATE TABLE Employee (
-    employee_id INT IDENTITY(1,1) PRIMARY KEY,
-    person_id INT NOT NULL,
-    first_name NVARCHAR(50) NOT NULL,
-    last_name NVARCHAR(50) NOT NULL,
-    position NVARCHAR(50) NOT NULL,
-    created_at DATETIME DEFAULT GETDATE(),
+    employee_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    position TEXT NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (person_id) REFERENCES Person(person_id) ON DELETE CASCADE
 );
 
 -- Create SME_Company table
 CREATE TABLE SME_Company (
-    company_id INT IDENTITY(1,1) PRIMARY KEY,
-    person_id INT NOT NULL,
-    company_name NVARCHAR(100) NOT NULL,
-    industry NVARCHAR(50),
-    contact_person NVARCHAR(100),
-    created_at DATETIME DEFAULT GETDATE(),
+    company_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER NOT NULL,
+    company_name TEXT NOT NULL,
+    industry TEXT,
+    contact_person TEXT,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (person_id) REFERENCES Person(person_id) ON DELETE CASCADE
 );
 
 -- Create Location table
 CREATE TABLE Location (
-    location_id INT IDENTITY(1,1) PRIMARY KEY,
-    address_line1 NVARCHAR(100) NOT NULL,
-    address_line2 NVARCHAR(100),
-    city NVARCHAR(50) NOT NULL,
-    postal_code NVARCHAR(20),
-    country NVARCHAR(50) NOT NULL,
-    location_type NVARCHAR(20) NOT NULL,
-    created_at DATETIME DEFAULT GETDATE(),
+    location_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    address_line1 TEXT NOT NULL,
+    city TEXT NOT NULL,
+    postal_code TEXT,
+    country TEXT NOT NULL,
+    location_type TEXT NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT valid_location_type CHECK (location_type IN ('warehouse', 'customer', 'supplier', 'office'))
 );
 
 -- Create Category lookup table 
 CREATE TABLE Category (
-    category_id INT IDENTITY(1,1) PRIMARY KEY,
-    category_name NVARCHAR(50) NOT NULL UNIQUE,
-    created_at DATETIME DEFAULT GETDATE()
+    category_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_name TEXT NOT NULL UNIQUE,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create Units lookup table  
 CREATE TABLE Units (
-    unit_id INT IDENTITY(1,1) PRIMARY KEY,
-    unit_name NVARCHAR(20) NOT NULL UNIQUE,
-    created_at DATETIME DEFAULT GETDATE()
+    unit_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    unit_name TEXT NOT NULL UNIQUE,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create Product table
 CREATE TABLE Product (
-    product_id INT IDENTITY(1,1) PRIMARY KEY,
-    sku NVARCHAR(20) NOT NULL UNIQUE,
-    product_name NVARCHAR(100) NOT NULL,
-    description NVARCHAR(MAX),
-    category_id INT,
-    unit_id INT,
-    unit_price DECIMAL(18,2) NOT NULL,
-    cost_price DECIMAL(18,2) NOT NULL,
-    selling_price DECIMAL(18,2),
-    created_at DATETIME DEFAULT GETDATE(),
-    last_updated DATETIME DEFAULT GETDATE(),
-    CONSTRAINT chk_unit_price CHECK (unit_price > 0),
-    CONSTRAINT chk_cost_price CHECK (cost_price > 0),
-    CONSTRAINT chk_selling_price CHECK (selling_price > 0),
+    product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sku TEXT NOT NULL UNIQUE,
+    product_name TEXT NOT NULL,
+    description TEXT,
+    category_id INTEGER,
+    unit_id INTEGER,
+    unit_price REAL NOT NULL CHECK(unit_price > 0),
+    cost_price REAL NOT NULL CHECK(cost_price > 0),
+    selling_price REAL CHECK(selling_price > 0),
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    last_updated TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES Category(category_id),
     FOREIGN KEY (unit_id) REFERENCES Units(unit_id)
 );
 
 -- Create Sales_Order table
 CREATE TABLE Sales_Order (
-    order_id INT IDENTITY(1,1) PRIMARY KEY,
-    order_number NVARCHAR(20) NOT NULL UNIQUE,
-    customer_id INT,
-    company_id INT,
-    order_date DATETIME DEFAULT GETDATE(),
-    order_status NVARCHAR(20) NOT NULL DEFAULT 'pending',
-    total_amount DECIMAL(18,2) NOT NULL,
-    shipping_address_id INT NOT NULL,
-    created_at DATETIME DEFAULT GETDATE(),
-    CONSTRAINT chk_total_amount CHECK (total_amount >= 0),
+    order_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_number TEXT NOT NULL UNIQUE,
+    customer_id INTEGER,
+    company_id INTEGER,
+    order_date TEXT DEFAULT CURRENT_TIMESTAMP,
+    order_status TEXT NOT NULL DEFAULT 'pending',
+    total_amount REAL NOT NULL CHECK(total_amount >= 0),
+    shipping_address_id INTEGER NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT valid_order_status CHECK (order_status IN ('pending', 'confirmed', 'shipped', 'delivered', 'cancelled')),
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE SET NULL,
     FOREIGN KEY (company_id) REFERENCES SME_Company(company_id) ON DELETE SET NULL,
@@ -130,30 +125,27 @@ CREATE TABLE Sales_Order (
 
 -- Create Order_Items table
 CREATE TABLE Order_Items (
-    order_item_id INT IDENTITY(1,1) PRIMARY KEY,
-    order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    unit_price DECIMAL(18,2) NOT NULL,
-    created_at DATETIME DEFAULT GETDATE(),
-    CONSTRAINT chk_quantity CHECK (quantity > 0),
-    CONSTRAINT chk_order_unit_price CHECK (unit_price >= 0),
+    order_item_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL CHECK(quantity > 0),
+    unit_price REAL NOT NULL CHECK(unit_price >= 0),
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES Sales_Order(order_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
 -- Create Inventory table
 CREATE TABLE Inventory (
-    inventory_id INT IDENTITY(1,1) PRIMARY KEY,
-    product_id INT NOT NULL,
-    location_id INT NOT NULL,
-    quantity_on_hand INT NOT NULL DEFAULT 0,
-    reorder_level INT DEFAULT 0,
-    shelf_location NVARCHAR(20),
-    status NVARCHAR(20) NOT NULL DEFAULT 'In Stock',
-    created_at DATETIME DEFAULT GETDATE(),
-    last_updated DATETIME DEFAULT GETDATE(),
-    CONSTRAINT chk_quantity_on_hand CHECK (quantity_on_hand >= 0),
+    inventory_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
+    location_id INTEGER NOT NULL,
+    quantity_on_hand INTEGER NOT NULL DEFAULT 0 CHECK(quantity_on_hand >= 0),
+    reorder_level INTEGER DEFAULT 0,
+    shelf_location TEXT,
+    status TEXT NOT NULL DEFAULT 'In Stock',
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    last_updated TEXT DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT valid_inventory_status CHECK (status IN ('In Stock', 'Low Stock', 'Out of Stock', 'Reserved')),
     FOREIGN KEY (product_id) REFERENCES Product(product_id),
     FOREIGN KEY (location_id) REFERENCES Location(location_id)
@@ -161,33 +153,31 @@ CREATE TABLE Inventory (
 
 -- Create Shipment table
 CREATE TABLE Shipment (
-    shipment_id INT IDENTITY(1,1) PRIMARY KEY,
-    shipment_number NVARCHAR(20) NOT NULL UNIQUE,
-    order_id INT NOT NULL,
-    shipment_date DATETIME,
-    estimated_delivery DATETIME,
-    shipment_status NVARCHAR(20) NOT NULL DEFAULT 'pending',
-    tracking_number NVARCHAR(50),
-    created_at DATETIME DEFAULT GETDATE(),
+    shipment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    shipment_number TEXT NOT NULL UNIQUE,
+    order_id INTEGER NOT NULL,
+    shipment_date TEXT,
+    estimated_delivery TEXT,
+    shipment_status TEXT NOT NULL DEFAULT 'pending',
+    tracking_number TEXT,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT valid_shipment_status CHECK (shipment_status IN ('pending', 'in_transit', 'delivered', 'cancelled')),
     FOREIGN KEY (order_id) REFERENCES Sales_Order(order_id)
 );
 
 -- Create Manufacturing_Job table
 CREATE TABLE Manufacturing_Job (
-    job_id INT IDENTITY(1,1) PRIMARY KEY,
-    job_number NVARCHAR(20) NOT NULL UNIQUE,
-    product_id INT NOT NULL,
-    planned_quantity INT NOT NULL,
-    completed_quantity INT DEFAULT 0,
-    start_date DATETIME,
-    due_date DATETIME NOT NULL,
-    status NVARCHAR(20) NOT NULL DEFAULT 'scheduled',
-    progress_percentage INT NOT NULL DEFAULT 0,
-    created_at DATETIME DEFAULT GETDATE(),
-    CONSTRAINT chk_planned_quantity CHECK (planned_quantity > 0),
+    job_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    job_number TEXT NOT NULL UNIQUE,
+    product_id INTEGER NOT NULL,
+    planned_quantity INTEGER NOT NULL CHECK(planned_quantity > 0),
+    completed_quantity INTEGER DEFAULT 0,
+    start_date TEXT,
+    due_date TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'scheduled',
+    progress_percentage INTEGER NOT NULL DEFAULT 0 CHECK(progress_percentage BETWEEN 0 AND 100),
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT valid_job_status CHECK (status IN ('scheduled', 'in_progress', 'completed', 'cancelled')),
-    CONSTRAINT valid_progress CHECK (progress_percentage BETWEEN 0 AND 100),
     FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
@@ -283,6 +273,7 @@ INSERT INTO Shipment (shipment_number, order_id, shipment_status, tracking_numbe
 
 -- Insert Manufacturing Jobs
 INSERT INTO Manufacturing_Job (job_number, product_id, planned_quantity, due_date, status, progress_percentage) VALUES
-('JOB-001', 1, 100, '2024-02-01', 'in_progress', 25),
-('JOB-002', 3, 50, '2024-02-15', 'scheduled', 0),
-('JOB-003', 2, 200, '2024-02-10', 'completed', 100);
+('JOB-001', 1, 100, '2024-02-01 00:00:00', 'in_progress', 25),
+('JOB-002', 3, 50, '2024-02-15 00:00:00', 'scheduled', 0),
+('JOB-003', 2, 200, '2024-02-10 00:00:00', 'completed', 100);
+
