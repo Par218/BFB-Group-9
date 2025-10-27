@@ -1,15 +1,13 @@
--- Inventory Hub ERP System 
+-- Inventory Hub ERP System - SQLite Database Schema
 
--- Enable foreign key constraints
 PRAGMA foreign_keys = ON;
 
--- Drop tables in correct order
+-- Drop tables 
 DROP TABLE IF EXISTS Order_Items;
 DROP TABLE IF EXISTS Shipment;
-DROP TABLE IF EXISTS Sales_Order;
 DROP TABLE IF EXISTS Inventory;
 DROP TABLE IF EXISTS Manufacturing_Job;
-DROP TABLE IF EXISTS Marketing_Campaign;
+DROP TABLE IF EXISTS Sales_Order;
 DROP TABLE IF EXISTS Customer;
 DROP TABLE IF EXISTS Employee;
 DROP TABLE IF EXISTS SME_Company;
@@ -33,6 +31,7 @@ CREATE TABLE Customer (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(20),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
@@ -128,50 +127,69 @@ CREATE TABLE Manufacturing_Job (
     FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
--- Insert sample data
+-- Insert Users
 INSERT INTO User (username, email, password_hash, user_type) VALUES
 ('admin', 'admin@inventoryhub.com', 'hashed_password_1', 'employee'),
 ('johndoe', 'john.doe@email.com', 'hashed_password_2', 'customer'),
-('abccorp', 'contact@abccorp.com', 'hashed_password_3', 'sme_company'),
-('janedoe', 'jane.doe@email.com', 'hashed_password_4', 'customer');
+('janedoe', 'jane.doe@email.com', 'hashed_password_3', 'customer'),
+('abccorp', 'contact@abccorp.com', 'hashed_password_4', 'sme_company'),
+('electriccorp', 'info@electriccorp.com', 'hashed_password_5', 'sme_company');
 
+-- Insert Employees
 INSERT INTO Employee (user_id, first_name, last_name, position) VALUES
 (1, 'Admin', 'User', 'System Administrator');
 
+-- Insert Customers 
 INSERT INTO Customer (user_id, first_name, last_name, phone_number) VALUES
-(2, 'John', 'Doe', '+1234567890'),
-(4, 'Jane', 'Doe', '+0987654321');
+(2, 'John', 'Doe', '+27111234567'),
+(3, 'Jane', 'Doe', '+27119876543');
 
+-- Insert SME Companies 
 INSERT INTO SME_Company (user_id, company_name, industry, contact_person) VALUES
-(3, 'ABC Industries', 'Manufacturing', 'Bob Smith');
+(4, 'ABC Industries', 'Manufacturing', 'Bob Smith'),
+(5, 'Electric Corp', 'Electronics', 'Sarah Johnson');
 
+-- Insert Locations
 INSERT INTO Location (address_line1, city, postal_code, country, location_type) VALUES
-('123 Main St', 'Johannesburg', '2000', 'South Africa', 'warehouse'),
-('456 Oak Ave', 'Cape Town', '8000', 'South Africa', 'customer'),
-('789 Factory Rd', 'Durban', '4000', 'South Africa', 'warehouse');
+('123 Warehouse St', 'Johannesburg', '2000', 'South Africa', 'warehouse'),
+('456 Customer Ave', 'Cape Town', '8000', 'South Africa', 'customer'),
+('789 Industrial Rd', 'Durban', '4000', 'South Africa', 'warehouse');
 
+-- Insert Products
 INSERT INTO Product (sku, product_name, category, unit_price, cost_price, unit_of_measurement) VALUES
 ('SKU-001', 'Cream Donut', 'Donuts', 15.00, 8.00, 'unit'),
-('SKU-002', 'Chocolate Chip Cookie', 'Cookies', 10.00, 5.00, 'unit'),
-('SKU-003', 'Whole Wheat Bread', 'Bread', 25.00, 12.00, 'loaf');
+('SKU-002', 'Chocolate Chip', 'Cookies', 10.00, 5.00, 'unit'),
+('SKU-003', 'Vanilla Cake', 'Cakes', 25.00, 12.00, 'unit'),
+('SKU-004', 'Whole Wheat Bread', 'Bread', 20.00, 10.00, 'loaf');
 
+-- Insert Inventory
 INSERT INTO Inventory (product_id, location_id, quantity_on_hand) VALUES
 (1, 1, 50),
 (2, 1, 75),
-(3, 3, 30);
+(3, 1, 30),
+(4, 1, 40);
 
-INSERT INTO Sales_Order (order_number, customer_id, total_amount, shipping_address_id) VALUES
-('ORD-001', 1, 150.00, 2),
-('ORD-002', 2, 200.00, 2);
+-- Insert Sales Orders 
+INSERT INTO Sales_Order (order_number, customer_id, company_id, order_status, total_amount, shipping_address_id) VALUES
+('ORD-001', 1, NULL, 'delivered', 50.00, 2),  
+('ORD-002', NULL, 1, 'pending', 200.00, 2),    
+('ORD-003', 2, NULL, 'cancelled', 50.00, 2);   
 
+-- Insert Order Items
 INSERT INTO Order_Items (order_id, product_id, quantity, unit_price) VALUES
-(1, 1, 10, 15.00),
-(2, 2, 20, 10.00);
+(1, 1, 2, 15.00),
+(1, 2, 2, 10.00),
+(2, 2, 20, 10.00),
+(3, 1, 2, 15.00),
+(3, 2, 2, 10.00);
 
-INSERT INTO Shipment (shipment_number, order_id, tracking_number) VALUES
-('SHIP-001', 1, 'TRK123456'),
-('SHIP-002', 2, 'TRK789012');
+-- Insert Shipments
+INSERT INTO Shipment (shipment_number, order_id, shipment_status, tracking_number) VALUES
+('SHIP-001', 1, 'delivered', 'TRK123456'),
+('SHIP-002', 2, 'pending', 'TRK789012');
 
+-- Insert Manufacturing Jobs
 INSERT INTO Manufacturing_Job (job_number, product_id, planned_quantity, due_date, status, progress_percentage) VALUES
 ('JOB-001', 1, 100, '2024-02-01', 'in_progress', 25),
-('JOB-002', 3, 50, '2024-02-15', 'scheduled', 0);
+('JOB-002', 3, 50, '2024-02-15', 'scheduled', 0),
+('JOB-003', 2, 200, '2024-02-10', 'completed', 100);
