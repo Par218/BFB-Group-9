@@ -8,7 +8,7 @@ A comprehensive web-based ERP system for inventory management, built with HTML, 
 
 A system by:
 
-Phathu Mudau u19032936
+Phathutshedzo Mudau u19032936
 
 Ndumiso Zondi u22631268
 
