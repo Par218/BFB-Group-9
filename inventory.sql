@@ -1,4 +1,4 @@
--- Inventory Hub ERP System - SQLite Database Schema
+-- Inventory Hub ERP System - Enhanced SQLite Database Schema
 
 PRAGMA foreign_keys = ON;
 
@@ -12,6 +12,8 @@ DROP TABLE IF EXISTS Customer;
 DROP TABLE IF EXISTS Employee;
 DROP TABLE IF EXISTS SME_Company;
 DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS Units;
 DROP TABLE IF EXISTS Location;
 DROP TABLE IF EXISTS User;
 
@@ -62,14 +64,30 @@ CREATE TABLE Location (
     location_type VARCHAR(20) NOT NULL CHECK(location_type IN ('warehouse', 'customer', 'supplier', 'office'))
 );
 
+-- Category lookup table 
+CREATE TABLE Category (
+    category_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- Units lookup table  
+CREATE TABLE Units (
+    unit_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    unit_name VARCHAR(20) UNIQUE NOT NULL
+);
+
 CREATE TABLE Product (
     product_id INTEGER PRIMARY KEY AUTOINCREMENT,
     sku VARCHAR(50) UNIQUE NOT NULL,
     product_name VARCHAR(100) NOT NULL,
-    category VARCHAR(50) NOT NULL,
-    unit_price DECIMAL(10,2) NOT NULL,
-    cost_price DECIMAL(10,2) NOT NULL,
-    unit_of_measurement VARCHAR(20) NOT NULL
+    category_id INTEGER REFERENCES Category(category_id),
+    unit_id INTEGER REFERENCES Units(unit_id),
+    unit_price DECIMAL(10,2) NOT NULL CHECK(unit_price > 0),
+    cost_price DECIMAL(10,2) NOT NULL CHECK(cost_price > 0),
+    selling_price DECIMAL(10,2) CHECK(selling_price > 0),
+    units VARCHAR(20),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Sales_Order (
@@ -79,10 +97,10 @@ CREATE TABLE Sales_Order (
     company_id INTEGER,
     order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     order_status VARCHAR(20) DEFAULT 'pending' CHECK(order_status IN ('pending', 'confirmed', 'shipped', 'delivered', 'cancelled')),
-    total_amount DECIMAL(10,2) NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL CHECK(total_amount >= 0),
     shipping_address_id INTEGER NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
-    FOREIGN KEY (company_id) REFERENCES SME_Company(company_id),
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE SET NULL,
+    FOREIGN KEY (company_id) REFERENCES SME_Company(company_id) ON DELETE SET NULL,
     FOREIGN KEY (shipping_address_id) REFERENCES Location(location_id)
 );
 
@@ -90,17 +108,19 @@ CREATE TABLE Order_Items (
     order_item_id INTEGER PRIMARY KEY AUTOINCREMENT,
     order_id INTEGER NOT NULL,
     product_id INTEGER NOT NULL,
-    quantity INTEGER NOT NULL,
-    unit_price DECIMAL(10,2) NOT NULL,
+    quantity INTEGER NOT NULL CHECK(quantity > 0),
+    unit_price DECIMAL(10,2) NOT NULL CHECK(unit_price >= 0),
     FOREIGN KEY (order_id) REFERENCES Sales_Order(order_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES Product(product_id)
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE RESTRICT
 );
 
 CREATE TABLE Inventory (
     inventory_id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
-    quantity_on_hand INTEGER NOT NULL DEFAULT 0,
+    quantity_on_hand INTEGER NOT NULL DEFAULT 0 CHECK(quantity_on_hand >= 0),
+    shelf_location VARCHAR(50),
+    status VARCHAR(20) DEFAULT 'In Stock',
     FOREIGN KEY (product_id) REFERENCES Product(product_id),
     FOREIGN KEY (location_id) REFERENCES Location(location_id)
 );
@@ -119,13 +139,23 @@ CREATE TABLE Manufacturing_Job (
     job_id INTEGER PRIMARY KEY AUTOINCREMENT,
     job_number VARCHAR(50) UNIQUE NOT NULL,
     product_id INTEGER NOT NULL,
-    planned_quantity INTEGER NOT NULL,
+    planned_quantity INTEGER NOT NULL CHECK(planned_quantity > 0),
     start_date DATETIME,
     due_date DATETIME NOT NULL,
     status VARCHAR(20) DEFAULT 'scheduled' CHECK(status IN ('scheduled', 'in_progress', 'completed', 'cancelled')),
-    progress_percentage INTEGER DEFAULT 0,
+    progress_percentage INTEGER DEFAULT 0 CHECK(progress_percentage BETWEEN 0 AND 100),
     FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
+
+-- Insert Categories
+INSERT INTO Category (category_name) VALUES 
+('Donuts'), ('Cookies'), ('Cakes'), ('Bread'),
+('One'), ('Two'), ('Three');
+
+-- Insert Units
+INSERT INTO Units (unit_name) VALUES 
+('R/unit'), ('R/kg'), ('R/ton'),
+('One'), ('Two'), ('Three');
 
 -- Insert Users
 INSERT INTO User (username, email, password_hash, user_type) VALUES
@@ -156,18 +186,35 @@ INSERT INTO Location (address_line1, city, postal_code, country, location_type) 
 ('789 Industrial Rd', 'Durban', '4000', 'South Africa', 'warehouse');
 
 -- Insert Products
-INSERT INTO Product (sku, product_name, category, unit_price, cost_price, unit_of_measurement) VALUES
-('SKU-001', 'Cream Donut', 'Donuts', 15.00, 8.00, 'unit'),
-('SKU-002', 'Chocolate Chip', 'Cookies', 10.00, 5.00, 'unit'),
-('SKU-003', 'Vanilla Cake', 'Cakes', 25.00, 12.00, 'unit'),
-('SKU-004', 'Whole Wheat Bread', 'Bread', 20.00, 10.00, 'loaf');
+INSERT INTO Product (sku, product_name, category_id, unit_id, unit_price, cost_price, selling_price, units) VALUES
+('SKU-001', 'Cream Donut', 
+ (SELECT category_id FROM Category WHERE category_name = 'Donuts'),
+ (SELECT unit_id FROM Units WHERE unit_name = 'R/unit'),
+ 15.00, 8.00, 18.00, 'unit'),
 
--- Insert Inventory
-INSERT INTO Inventory (product_id, location_id, quantity_on_hand) VALUES
-(1, 1, 50),
-(2, 1, 75),
-(3, 1, 30),
-(4, 1, 40);
+('SKU-002', 'Chocolate Chip', 
+ (SELECT category_id FROM Category WHERE category_name = 'Cookies'),
+ (SELECT unit_id FROM Units WHERE unit_name = 'R/unit'),
+ 10.00, 5.00, 12.00, 'unit'),
+
+('SKU-003', 'Vanilla Cake', 
+ (SELECT category_id FROM Category WHERE category_name = 'Cakes'),
+ (SELECT unit_id FROM Units WHERE unit_name = 'R/unit'),
+ 25.00, 12.00, 30.00, 'unit'),
+
+('SKU-004', 'Whole Wheat Bread', 
+ (SELECT category_id FROM Category WHERE category_name = 'Bread'),
+ (SELECT unit_id FROM Units WHERE unit_name = 'R/unit'),
+ 20.00, 10.00, 24.00, 'loaf');
+
+-- Insert Inventory 
+INSERT INTO Inventory (product_id, location_id, quantity_on_hand, shelf_location, status) VALUES
+(1, 1, 25, 'A1', 'In Stock'),
+(2, 1, 8, 'B2', 'Low Stock'),
+(3, 1, 0, 'C3', 'Out of Stock'),
+(4, 1, 15, 'D4', 'In Stock'),
+(1, 3, 30, 'E1', 'In Stock'),
+(2, 3, 5, 'F2', 'Low Stock');
 
 -- Insert Sales Orders 
 INSERT INTO Sales_Order (order_number, customer_id, company_id, order_status, total_amount, shipping_address_id) VALUES
