@@ -1,6 +1,20 @@
+
+
+
+
 # Inventory Hub ERP System
 
-A comprehensive web-based ERP system for inventory management, built with HTML, Bootstrap, JavaScript, and SQLite.
+A comprehensive web-based ERP system for inventory management, built with HTML, Bootstrap, JavaScript, and SQLite. 
+
+A system by:
+
+Phathu Mudau u19032936
+
+Ndumiso Zondi u22631268
+
+Jayden Williams u22830368 
+
+Caleb Pillay u23528232
 
 ## Features
 
@@ -92,7 +106,7 @@ The database includes realistic sample data for testing:
 - **Bootstrap 5.3.8**: UI framework and responsive design
 - **Chart.js**: Interactive charts and analytics visualization
 - **SQLite**: Database for data persistence and relationships
-- **JavaScript**: Client-side functionality and chart rendering
+- **JavaScript**: Client-side functionality and chart rendering (the javascript is only there for graph demonstration purposes and will be removed)
 
 ## Browser Compatibility
 
