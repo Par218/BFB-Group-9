@@ -21,39 +21,31 @@ A comprehensive web-based ERP system for inventory management, built with HTML, 
    ```bash
    sqlite3 inventory_hub.db < inventory.sql
    
+## Database Schema
+
+### Entity Relationship Diagram (ERD)
+
 
 
 ## Tables
 
-**User**: Central table recording all users (employees, customers, SME companies) with authentication and security details
+1. **User**: Central table recording all users (employees, customers, SME companies) with authentication and security details
+2. **Customer**: Child table of User, recording individual customer specific details and contact information
+3. **Employee**: Child table of User, recording employee specific information including position and employment details
+4. **SME_Company**: Child table of User, recording client/partner companies and their business information
+5. **Location**: Table recording all physical locations including warehouses, customer addresses, and supplier locations
+6. **Product**: Table recording all products offered through the system with pricing, categories, and measurement units
+7. **Sales_Order**: Table recording all sales orders with customer/company information, order status, and total amounts
+8. **Order_Items**: Junction table linking sales orders to products with quantities and pricing
+9. **Inventory**: Table tracking current inventory levels across different locations
+10. **Shipment**: Table tracking and recording shipments for sales orders with status and tracking information
 
-**Customer**: Child table of User, recording individual customer specific details and contact information
-
-**Employee**: Child table of User, recording employee specific information including position and employment details
-
-**SME_Company**: Child table of User, recording client/partner companies and their business information
-
-**Location**: Table recording all physical locations including warehouses, customer addresses, and supplier locations
-
-**Product**: Table recording all products offered through the system with pricing, categories, and measurement units
-
-**Sales_Order**: Table recording all sales orders with customer/company information, order status, and total amounts
-
-**Order_Items**: Junction table linking sales orders to products with quantities and pricing
-
-**Inventory**: Table tracking current inventory levels across different locations
-
-**Shipment**: Table tracking and recording shipments for sales orders with status and tracking information
-
-**Manufacturing_Job**: Table managing production schedules, quantities, progress, and due dates
 
 ## Views
 
-**Logistics_Dashboard**: Summary of logistics related data used to organize and coordinate logistics operations including shipments, orders, and customer information
-
-**Manufacturing_Dashboard**: Summary of manufacturing information including job schedules, quantities, due dates, and progress percentages for production planning
-
-**SalesMarketing_Dashboard**: Comprehensive view of sales data and performance metrics used for analysis, reporting, and business planning
+1. **Logistics_Dashboard**: Summary of logistics related data used to organize and coordinate logistics operations including shipments, orders, and customer information
+2. **Manufacturing_Dashboard**: Summary of manufacturing information including job schedules, quantities, due dates, and progress percentages for production planning
+3. **SalesMarketing_Dashboard**: Comprehensive view of sales data and performance metrics used for analysis, reporting, and business planning
 
 ## Sample Data
 
@@ -70,6 +62,8 @@ The database includes realistic sample data for testing:
 - **2 Manufacturing Jobs**: Scheduled and in-progress production jobs
 
 ## File Structure
+
+```
 ├── index.html # Main dashboard with analytics and quick actions
 ├── Login.html # User authentication page
 ├── Register.html # User registration page
@@ -80,8 +74,8 @@ The database includes realistic sample data for testing:
 ├── barChart.js # Chart.js implementation for analytics
 ├── inventory.sql # Complete database schema and sample data
 └── README.md # This file
+```
 
-text
 
 ## Usage
 
@@ -107,4 +101,4 @@ The application works with all modern browsers that support HTML5, CSS3, and ES6
 - Safari 14+
 - Edge 90+
 
-
+Note: This is a static HTML application. For production use, you would need to add backend functionality for database connectivity and form processing.
