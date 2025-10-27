@@ -1,390 +1,220 @@
--- Database Creation
-CREATE DATABASE erp_system;
-USE erp_system;
+-- Inventory Hub ERP System 
+-- SQLite Implementation
 
--- SME Company
-CREATE TABLE sme_company (
-    company_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    industry VARCHAR(50),
-    location_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- Enable foreign key constraints
+PRAGMA foreign_keys = ON;
 
--- Location (Warehouses/Offices)
-CREATE TABLE location (
-    location_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    type ENUM('warehouse', 'office', 'store', 'factory'),
-    address VARCHAR(255),
-    capacity INT,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- Drop tables in correct order
+DROP TABLE IF EXISTS Order_Items;
+DROP TABLE IF EXISTS Shipment;
+DROP TABLE IF EXISTS Sales_Order;
+DROP TABLE IF EXISTS Inventory;
+DROP TABLE IF EXISTS Manufacturing_Job;
+DROP TABLE IF EXISTS Marketing_Campaign;
+DROP TABLE IF EXISTS Customer;
+DROP TABLE IF EXISTS Employee;
+DROP TABLE IF EXISTS SME_Company;
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS Location;
+DROP TABLE IF EXISTS User;
 
--- Add foreign key after location table is created
-ALTER TABLE sme_company ADD FOREIGN KEY (location_id) REFERENCES location(location_id);
-
--- Roles
-CREATE TABLE role (
-    role_id INT PRIMARY KEY AUTO_INCREMENT,
-    role_name VARCHAR(50) NOT NULL UNIQUE,
-    description TEXT
-);
-
--- Modules
-CREATE TABLE module (
-    module_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    enabled TINYINT DEFAULT 1
-);
-
--- Permissions
-CREATE TABLE permissions (
-    permission_id INT PRIMARY KEY AUTO_INCREMENT,
-    can_view TINYINT DEFAULT 0,
-    can_edit TINYINT DEFAULT 0,
-    can_delete TINYINT DEFAULT 0,
-    module_id INT NOT NULL,
-    role_id INT NOT NULL,
-    FOREIGN KEY (module_id) REFERENCES module(module_id),
-    FOREIGN KEY (role_id) REFERENCES role(role_id)
-);
-
--- Users (Base table for Customer, Employee, Developer)
-CREATE TABLE user (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    surname VARCHAR(100) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
+-- Create tables
+CREATE TABLE User (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    user_type ENUM('customer', 'employee', 'developer') DEFAULT 'customer',
-    role_id INT,
-    company_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (role_id) REFERENCES role(role_id),
-    FOREIGN KEY (company_id) REFERENCES sme_company(company_id)
+    user_type VARCHAR(20) NOT NULL CHECK(user_type IN ('employee', 'customer', 'sme_company')),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Customer (extends User)
-CREATE TABLE customer (
-    user_id INT PRIMARY KEY,
-    phone VARCHAR(50),
-    address VARCHAR(255),
-    social_handle VARCHAR(100),
-    credit_limit DECIMAL(15,2) DEFAULT 0,
-    payment_terms INT DEFAULT 30,
-    is_active BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+CREATE TABLE Customer (
+    customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
--- Employee (extends User)
-CREATE TABLE employee (
-    user_id INT PRIMARY KEY,
-    position VARCHAR(100),
-    salary DECIMAL(15,2),
-    hire_date DATE,
-    department ENUM('sales', 'manufacturing', 'logistics', 'inventory', 'admin'),
-    is_active BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+CREATE TABLE Employee (
+    employee_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    position VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
--- Developer (extends User)
-CREATE TABLE developer (
-    user_id INT PRIMARY KEY,
-    specialization VARCHAR(100),
-    is_active BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+CREATE TABLE SME_Company (
+    company_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    company_name VARCHAR(100) NOT NULL,
+    industry VARCHAR(50),
+    contact_person VARCHAR(100),
+    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
--- Categories
-CREATE TABLE category (
-    category_id INT PRIMARY KEY AUTO_INCREMENT,
-    category_name VARCHAR(100) NOT NULL,
-    description TEXT,
-    parent_category_id INT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (parent_category_id) REFERENCES category(category_id)
+CREATE TABLE Location (
+    location_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    address_line1 VARCHAR(255) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    postal_code VARCHAR(20),
+    country VARCHAR(50) NOT NULL,
+    location_type VARCHAR(20) NOT NULL CHECK(location_type IN ('warehouse', 'customer', 'supplier', 'office'))
 );
 
--- Units
-CREATE TABLE unit (
-    unit_id INT PRIMARY KEY AUTO_INCREMENT,
-    unit_name VARCHAR(50) NOT NULL,
-    unit_symbol VARCHAR(10) NOT NULL,
-    unit_type ENUM('weight', 'volume', 'piece', 'length') DEFAULT 'piece'
-);
-
--- Products
-CREATE TABLE product (
-    product_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    category VARCHAR(50),
-    unit VARCHAR(10),
+CREATE TABLE Product (
+    product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sku VARCHAR(50) UNIQUE NOT NULL,
+    product_name VARCHAR(100) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
     cost_price DECIMAL(10,2) NOT NULL,
-    selling_price DECIMAL(10,2) NOT NULL,
-    description TEXT,
-    min_stock_level INT DEFAULT 0,
-    max_stock_level INT DEFAULT 1000,
-    company_id INT NOT NULL,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (company_id) REFERENCES sme_company(company_id)
+    unit_of_measurement VARCHAR(20) NOT NULL
 );
 
--- Inventory
-CREATE TABLE inventory (
-    inventory_id INT PRIMARY KEY AUTO_INCREMENT,
-    quantity INT NOT NULL DEFAULT 0,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    product_id INT NOT NULL,
-    location_id INT NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES product(product_id),
-    FOREIGN KEY (location_id) REFERENCES location(location_id),
-    UNIQUE KEY unique_product_location (product_id, location_id)
+CREATE TABLE Sales_Order (
+    order_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_number VARCHAR(50) UNIQUE NOT NULL,
+    customer_id INTEGER,
+    company_id INTEGER,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    order_status VARCHAR(20) DEFAULT 'pending' CHECK(order_status IN ('pending', 'confirmed', 'shipped', 'delivered', 'cancelled')),
+    total_amount DECIMAL(10,2) NOT NULL,
+    shipping_address_id INTEGER NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+    FOREIGN KEY (company_id) REFERENCES SME_Company(company_id),
+    FOREIGN KEY (shipping_address_id) REFERENCES Location(location_id)
 );
 
--- Sales Order
-CREATE TABLE sales_order (
-    order_id INT PRIMARY KEY AUTO_INCREMENT,
-    order_qty INT NOT NULL,
-    due_date DATE,
-    status VARCHAR(20) DEFAULT 'pending',
-    total_amount DECIMAL(15,2) NOT NULL,
-    tax_amount DECIMAL(15,2) DEFAULT 0,
-    discount_amount DECIMAL(15,2) DEFAULT 0,
-    final_amount DECIMAL(15,2) NOT NULL,
-    product_id INT NOT NULL,
-    user_id INT NOT NULL, -- customer user_id
-    company_id INT NOT NULL,
-    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES product(product_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
-    FOREIGN KEY (company_id) REFERENCES sme_company(company_id)
+CREATE TABLE Order_Items (
+    order_item_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Sales_Order(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
--- Production Plan
-CREATE TABLE production_plan (
-    plan_id INT PRIMARY KEY AUTO_INCREMENT,
-    planned_qty INT NOT NULL,
-    prod_date DATE NOT NULL,
-    end_date DATE NOT NULL,
-    status VARCHAR(20) DEFAULT 'planned',
-    product_id INT NOT NULL,
-    employee_user_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES product(product_id),
-    FOREIGN KEY (employee_user_id) REFERENCES user(user_id)
+CREATE TABLE Inventory (
+    inventory_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
+    location_id INTEGER NOT NULL,
+    quantity_on_hand INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id),
+    FOREIGN KEY (location_id) REFERENCES Location(location_id)
 );
 
--- Forecast
-CREATE TABLE forecast (
-    forecast_id INT PRIMARY KEY AUTO_INCREMENT,
-    forecast_qty INT NOT NULL,
-    forecast_date DATE NOT NULL,
-    status VARCHAR(20) DEFAULT 'active',
-    product_id INT NOT NULL,
-    user_id INT NOT NULL, -- employee user_id
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES product(product_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
-
--- Shipment
-CREATE TABLE shipment (
-    shipment_id INT PRIMARY KEY AUTO_INCREMENT,
-    shipped_qty INT NOT NULL,
-    ship_date DATE,
-    status VARCHAR(20) DEFAULT 'pending',
+CREATE TABLE Shipment (
+    shipment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    shipment_number VARCHAR(50) UNIQUE NOT NULL,
+    order_id INTEGER NOT NULL,
+    shipment_date DATETIME,
+    shipment_status VARCHAR(20) DEFAULT 'pending' CHECK(shipment_status IN ('pending', 'in_transit', 'delivered', 'cancelled')),
     tracking_number VARCHAR(100),
-    carrier VARCHAR(100),
-    estimated_delivery DATE,
-    actual_delivery DATE,
-    shipping_cost DECIMAL(15,2) DEFAULT 0,
-    product_id INT NOT NULL,
-    location_id INT NOT NULL,
-    order_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES product(product_id),
-    FOREIGN KEY (location_id) REFERENCES location(location_id),
-    FOREIGN KEY (order_id) REFERENCES sales_order(order_id)
+    FOREIGN KEY (order_id) REFERENCES Sales_Order(order_id)
 );
 
--- Social Features: Posts
-CREATE TABLE post (
-    post_id INT PRIMARY KEY AUTO_INCREMENT,
-    content LONGTEXT,
-    image_url VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    company_id INT NOT NULL,
-    user_id INT NOT NULL,
-    FOREIGN KEY (company_id) REFERENCES sme_company(company_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+CREATE TABLE Manufacturing_Job (
+    job_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    job_number VARCHAR(50) UNIQUE NOT NULL,
+    product_id INTEGER NOT NULL,
+    planned_quantity INTEGER NOT NULL,
+    start_date DATETIME,
+    due_date DATETIME NOT NULL,
+    status VARCHAR(20) DEFAULT 'scheduled' CHECK(status IN ('scheduled', 'in_progress', 'completed', 'cancelled')),
+    progress_percentage INTEGER DEFAULT 0,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
--- Comments
-CREATE TABLE comment (
-    comment_id INT PRIMARY KEY AUTO_INCREMENT,
-    content LONGTEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    post_id INT NOT NULL,
-    user_id INT NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
+-- Insert sample data
+INSERT INTO User (username, email, password_hash, user_type) VALUES
+('admin', 'admin@inventoryhub.com', 'hashed_password_1', 'employee'),
+('johndoe', 'john.doe@email.com', 'hashed_password_2', 'customer'),
+('abccorp', 'contact@abccorp.com', 'hashed_password_3', 'sme_company'),
+('janedoe', 'jane.doe@email.com', 'hashed_password_4', 'customer');
 
--- Likes
-CREATE TABLE like (
-    like_id INT PRIMARY KEY AUTO_INCREMENT,
-    post_id INT NOT NULL,
-    user_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
-    UNIQUE KEY unique_like (post_id, user_id)
-);
+INSERT INTO Employee (user_id, first_name, last_name, position) VALUES
+(1, 'Admin', 'User', 'System Administrator');
 
--- Engagement Report
-CREATE TABLE engagement_report (
-    metric_id INT PRIMARY KEY AUTO_INCREMENT,
-    post_id INT NOT NULL,
-    comments INT DEFAULT 0,
-    views INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE
-);
+INSERT INTO Customer (user_id, first_name, last_name, phone_number) VALUES
+(2, 'John', 'Doe', '+1234567890'),
+(4, 'Jane', 'Doe', '+0987654321');
 
--- Update comment table to include metric_id after engagement_report is created
-ALTER TABLE comment ADD COLUMN metric_id INT;
-ALTER TABLE comment ADD FOREIGN KEY (metric_id) REFERENCES engagement_report(metric_id);
+INSERT INTO SME_Company (user_id, company_name, industry, contact_person) VALUES
+(3, 'ABC Industries', 'Manufacturing', 'Bob Smith');
 
--- Notifications
-CREATE TABLE notification (
-    log_id INT PRIMARY KEY AUTO_INCREMENT,
-    event VARCHAR(200) NOT NULL,
-    severity VARCHAR(20) DEFAULT 'info',
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    user_id INT NOT NULL,
-    is_read TINYINT DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
+INSERT INTO Location (address_line1, city, postal_code, country, location_type) VALUES
+('123 Main St', 'Johannesburg', '2000', 'South Africa', 'warehouse'),
+('456 Oak Ave', 'Cape Town', '8000', 'South Africa', 'customer'),
+('789 Factory Rd', 'Durban', '4000', 'South Africa', 'warehouse');
 
--- Audit Log
-CREATE TABLE audit_log (
-    audit_id INT PRIMARY KEY AUTO_INCREMENT,
-    action VARCHAR(100) NOT NULL,
-    table_name VARCHAR(100) NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    user_id INT NOT NULL,
-    record_id INT,
-    old_values JSON,
-    new_values JSON,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
+INSERT INTO Product (sku, product_name, category, unit_price, cost_price, unit_of_measurement) VALUES
+('SKU-001', 'Cream Donut', 'Donuts', 15.00, 8.00, 'unit'),
+('SKU-002', 'Chocolate Chip Cookie', 'Cookies', 10.00, 5.00, 'unit'),
+('SKU-003', 'Whole Wheat Bread', 'Bread', 25.00, 12.00, 'loaf');
 
--- Insert Initial Data
-INSERT INTO role (role_name, description) VALUES
-('admin', 'System administrator with full access'),
-('manager', 'Department manager with elevated permissions'),
-('employee', 'Regular employee with basic access'),
-('customer', 'External customer user');
+INSERT INTO Inventory (product_id, location_id, quantity_on_hand) VALUES
+(1, 1, 50),
+(2, 1, 75),
+(3, 3, 30);
 
-INSERT INTO module (name, enabled) VALUES
-('dashboard', 1),
-('inventory', 1),
-('sales', 1),
-('manufacturing', 1),
-('logistics', 1),
-('reports', 1),
-('social', 1);
+INSERT INTO Sales_Order (order_number, customer_id, total_amount, shipping_address_id) VALUES
+('ORD-001', 1, 150.00, 2),
+('ORD-002', 2, 200.00, 2);
 
-INSERT INTO unit (unit_name, unit_symbol, unit_type) VALUES
-('Piece', 'pc', 'piece'),
-('Kilogram', 'kg', 'weight'),
-('Gram', 'g', 'weight'),
-('Liter', 'L', 'volume'),
-('Meter', 'm', 'length');
+INSERT INTO Order_Items (order_id, product_id, quantity, unit_price) VALUES
+(1, 1, 10, 15.00),
+(2, 2, 20, 10.00);
 
-INSERT INTO category (category_name, description) VALUES
-('Electronics', 'Electronic devices and components'),
-('Furniture', 'Office and home furniture'),
-('Raw Materials', 'Materials for manufacturing'),
-('Finished Goods', 'Completed products for sale');
+INSERT INTO Shipment (shipment_number, order_id, tracking_number) VALUES
+('SHIP-001', 1, 'TRK123456'),
+('SHIP-002', 2, 'TRK789012');
 
--- Create indexes for better performance
-CREATE INDEX idx_sales_order_status ON sales_order(status);
-CREATE INDEX idx_sales_order_due_date ON sales_order(due_date);
-CREATE INDEX idx_inventory_product ON inventory(product_id);
-CREATE INDEX idx_production_plan_dates ON production_plan(prod_date, end_date);
-CREATE INDEX idx_forecast_date ON forecast(forecast_date);
-CREATE INDEX idx_shipment_status ON shipment(status);
-CREATE INDEX idx_user_type ON user(user_type);
+INSERT INTO Manufacturing_Job (job_number, product_id, planned_quantity, due_date, status, progress_percentage) VALUES
+('JOB-001', 1, 100, '2024-02-01', 'in_progress', 25),
+('JOB-002', 3, 50, '2024-02-15', 'scheduled', 0);
 
--- Create views for common queries
-CREATE VIEW vw_inventory_status AS
+-- Create essential views for dashboards
+CREATE VIEW Logistics_Dashboard AS
 SELECT 
-    p.product_id,
-    p.name as product_name,
-    p.category,
-    l.name as location_name,
-    i.quantity,
-    p.cost_price,
-    (i.quantity * p.cost_price) as inventory_value,
-    CASE 
-        WHEN i.quantity <= p.min_stock_level THEN 'Low Stock'
-        WHEN i.quantity = 0 THEN 'Out of Stock'
-        ELSE 'In Stock'
-    END as stock_status
-FROM inventory i
-JOIN product p ON i.product_id = p.product_id
-JOIN location l ON i.location_id = l.location_id;
+    s.shipment_id,
+    s.shipment_number,
+    so.order_number,
+    s.shipment_status,
+    s.shipment_date,
+    s.tracking_number,
+    c.first_name || ' ' || c.last_name as customer_name
+FROM Shipment s
+JOIN Sales_Order so ON s.order_id = so.order_id
+LEFT JOIN Customer c ON so.customer_id = c.customer_id;
 
-CREATE VIEW vw_sales_production_overview AS
+CREATE VIEW Manufacturing_Dashboard AS
 SELECT 
-    DATE_FORMAT(so.order_date, '%Y-%m') as month,
-    SUM(so.order_qty) as total_sales_qty,
-    SUM(so.final_amount) as total_sales_value,
-    COALESCE(SUM(pp.planned_qty), 0) as total_production_qty
-FROM sales_order so
-LEFT JOIN production_plan pp ON DATE_FORMAT(pp.prod_date, '%Y-%m') = DATE_FORMAT(so.order_date, '%Y-%m')
-GROUP BY DATE_FORMAT(so.order_date, '%Y-%m');
+    mj.job_id,
+    mj.job_number,
+    p.product_name,
+    mj.planned_quantity,
+    mj.start_date,
+    mj.due_date,
+    mj.status,
+    mj.progress_percentage
+FROM Manufacturing_Job mj
+JOIN Product p ON mj.product_id = p.product_id;
 
-CREATE VIEW vw_manufacturing_progress AS
+CREATE VIEW SalesMarketing_Dashboard AS
 SELECT 
-    pp.plan_id,
-    p.name as product_name,
-    pp.planned_qty,
-    pp.prod_date,
-    pp.end_date,
-    pp.status,
-    DATEDIFF(pp.end_date, CURDATE()) as days_remaining,
-    e.name as assigned_employee
-FROM production_plan pp
-JOIN product p ON pp.product_id = p.product_id
-JOIN user e ON pp.employee_user_id = e.user_id;
+    so.order_id,
+    so.order_number,
+    so.order_date,
+    so.total_amount,
+    so.order_status,
+    COALESCE(c.first_name || ' ' || c.last_name, sme.company_name) as customer_name
+FROM Sales_Order so
+LEFT JOIN Customer c ON so.customer_id = c.customer_id
+LEFT JOIN SME_Company sme ON so.company_id = sme.company_id;
 
-CREATE VIEW vw_user_details AS
-SELECT 
-    u.user_id,
-    u.name,
-    u.surname,
-    u.email,
-    u.user_type,
-    r.role_name,
-    c.name as company_name,
-    CASE 
-        WHEN u.user_type = 'customer' THEN cust.phone
-        WHEN u.user_type = 'employee' THEN emp.position
-        WHEN u.user_type = 'developer' THEN dev.specialization
-    END as details
-FROM user u
-LEFT JOIN role r ON u.role_id = r.role_id
-LEFT JOIN sme_company c ON u.company_id = c.company_id
-LEFT JOIN customer cust ON u.user_id = cust.user_id
-LEFT JOIN employee emp ON u.user_id = emp.user_id
-LEFT JOIN developer dev ON u.user_id = dev.user_id;
+-- Verification query
+SELECT 'Database setup completed successfully' as status;
