@@ -36,23 +36,23 @@
                     <div class="offcanvas-body d-md-flex flex-column "> 
                         <div class="list-group list-group-flush mx-3 mt-4">
                             <a href="index.html" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true"  style="border-radius: 12px;">
-                                <img src="Pictures/Dashboard black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <img src="Pictures/Dashboard black.svg" alt="dashboard icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Dashboard</span>
                             </a>
                             <a href="Logistics.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary ">
-                                <img src="Pictures/logistics black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <img src="Pictures/logistics black.svg" alt="logistics icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Logistics</span>
                             </a>
                             <a href="SalesAndMarketing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
-                                <img src="Pictures/campaign_56dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <img src="Pictures/campaign_56dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="sales-marketing icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Marketing & Sales</span>
                             </a>
                             <a href="Inventory.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
-                                <img src="Pictures/shelves_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <img src="Pictures/shelves_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="inventory icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Inventory</span>
                             </a>
                             <a href="Manufacturing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
-                                <img src="Pictures/factory black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <img src="Pictures/factory black.svg" alt="manufacturing icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
                                 <span>Manufacturing</span>
                             </a>           
                         </div>
@@ -97,7 +97,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src="Pictures/money-bag-south-african-rand-icon.png" class="img-fluid" alt="currency">
+                                        <img src="Pictures/money-bag-south-african-rand-icon.png" class="img-fluid" alt="revenue icon">
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src="Pictures/shopping basket.svg" class="img-fluid" alt="currency">
+                                        <img src="Pictures/shopping basket.svg" class="img-fluid" alt="products sold icon">
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src="Pictures/order_approve_56dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" class="img-fluid" alt="currency">
+                                        <img src="Pictures/order_approve_56dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" class="img-fluid" alt="complete jobs icon">
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
                                         <p>-% from last week</p>
                                     </div>
                                     <div class="col-3">
-                                        <img src="Pictures/order_play_56dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" class="img-fluid" alt="currency">
+                                        <img src="Pictures/order_play_56dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" class="img-fluid" alt="active orders icon">
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                     </div>
                 </div><!--graph and quick actions-->
                 <div class="row "  >
-                    <div class="col-9"> <!--graph-->
+                    <div class="col-9"> <!--graph, currently a placeholder -->
                         <h4 style = "margin-bottom: 2%; margin-top: 2%;"> Sales vs Production Overview </h4>
                         <div class="card">
                             <div class="card-body" style="height: 400px; width: autos;" >
@@ -170,7 +170,7 @@
                             <div class="hstack gap-3" style="margin-right: 10px;" > 
                                 <!--create invoice button-->
                                 <button class = "btn btn-outline-secondary" style ="width: 20vw; height: 20vh;" data-bs-toggle="modal" data-bs-target="#Invoice-modal">
-                                    <img src="Pictures/add_notes_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" class="img-fluid" alt="invoice-add" height="30">
+                                    <img src="Pictures/add_notes_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" class="img-fluid" alt="invoice icon" height="30">
                                     <br>
                                     <span style="font-size: 2vh;"> Create Invoice </span>
                                 </button>
@@ -189,12 +189,12 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <!--Invoice number-->
-                                                                <label for="invoiceNo" class="form-label">Invoice Number</label>
+                                                                <label for="invoiceNo" class="form-label">Invoice Number</label> <!--Will auto increment-->
                                                                 <input class="form-control" id="invoiceNo" type="text" placeholder="01" aria-label="Disabled input example" disabled>
                                                             </div>
                                                             <div class="col">
-                                                                <label for="invoiceDate" class="form-label">Invoice Date</label>
-                                                                <input class="form-control" id ="invoiceDate" type="text" placeholder="2025/10/27" aria-label="Disabled input example" disabled>
+                                                                <label for="invoiceDate" class="form-label">Invoice Date</label><!--Will auto populate with today's date-->
+                                                                <input class="form-control" id="invoiceDate" type="datetime-local" value="+010000-01-01T05:00" />
                                                             </div>
                                                         </div>   
                                                     </div> 
@@ -206,7 +206,7 @@
                                                     <div class="row">
                                                         <!--existing customer base-->
                                                         <label for="customerSelect" class="form-label">Customer</label>
-                                                        <select class="form-select" aria-label="Default select example" id="customerSelect" style="width: 40%;">
+                                                        <select class="form-select" aria-label="Customer select" id="customerSelect" style="width: 40%;">
                                                             <option selected></option>
                                                             <option value="1">John Doe</option>
                                                             <option value="2">Jane Doe</option>
@@ -223,20 +223,20 @@
                                                         <div class="col-6">
                                                             <div class="col-6">Customer Name: </div>
                                                             <div class="col-6">
-                                                                <input class="form-control" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                                <input class="form-control" type="text" placeholder="---" aria-label="autocomplete customer name" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="col-6">Cell No: </div>
                                                             <div class="col-6">
-                                                                <input class="form-control" type="text" placeholder="---" aria-label="Disabled input example" disabled>
+                                                                <input class="form-control" type="text" placeholder="---" aria-label="autocomplete customer number" disabled>
                                                             </div>
                                                         </div>  
                                                     </div>
                                                     <div class="row">
                                                         <div class="mb-3">
-                                                            <label for="exampleFormControlTextarea1" class="form-label">Address</label>
-                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                            <label for="addressTextArea" class="form-label">Address</label>
+                                                            <textarea class="form-control" id="addressTextArea" rows="3"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -248,9 +248,9 @@
                                                             <div class="col-8">
                                                                 <!--item search and quantity inputs-->
                                                                 <div class="input-group mb-5">
-                                                                    <input type="text" class="form-control" placeholder="Search" aria-label="Username" id="searchInvoice">
+                                                                    <input type="text" class="form-control" placeholder="Search" aria-label="items search" id="searchInvoice">
                                                                     
-                                                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="Server" id="quantityInvoice">
+                                                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="items quantity" id="quantityInvoice">
                                                                 </div>                                                                 
                                                             </div>
                                                             <div class="col-4">
@@ -326,7 +326,7 @@
                                                 <div class="row" style="margin-top: 2%;">
                                                     <div class="col-6">
                                                         <label for = "stockCategory" class="form-label">Category</label>
-                                                        <select class="form-select" aria-label="Default select example" id="stockCategory">
+                                                        <select class="form-select" aria-label="stock category select" id="stockCategory">
                                                             <option selected></option>
                                                             <option value="1">Donuts</option>
                                                             <option value="2">Cookies</option>
@@ -336,7 +336,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <label for = "stockUnits" class="form-label">Units</label>
-                                                        <select class="form-select" aria-label="Default select example" id="stockUnits">
+                                                        <select class="form-select" aria-label="stock unit select" id="stockUnits">
                                                             <option selected></option>
                                                             <option value="1">R/unit</option>
                                                             <option value="2">R/kg</option>
