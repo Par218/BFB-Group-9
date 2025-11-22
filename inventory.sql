@@ -1,5 +1,5 @@
 -- Inventory Hub ERP System - SQLite Database Schema
--- Database: inventory_hub.db
+-- Database: inventory.db
 
 -- Enable foreign key constraints
 PRAGMA foreign_keys = ON;
