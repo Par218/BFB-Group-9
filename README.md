@@ -96,34 +96,20 @@ The database includes realistic sample data for testing:
 
 
 ├── app.py                  # Main application controller
-
 ├── inventory.db            # SQLite database file
-
 ├── inventory.sql           # Database schema and seed data
-
 ├── README.md               # Project documentation
 
-├── static/                 # Static assets folder
-
-│   └── Pictures/           # Images and Icons
-
+└── static/                 # Static assets folder
+   └── Pictures/           # Images and Icons
 └── templates/              # HTML Templates folder
-
     ├── base.html           # Master layout template
-
-    
     ├── index.html          # Dashboard
-    
     ├── Inventory.html      # Inventory view
-    
     ├── Logistics.html      # Logistics view
-    
     ├── Manufacturing.html  # Manufacturing view
-    
     ├── Login.html          # Login view
-    
     ├── Register.html       # Registration view
-    
     └── SalesAndMarketing.html # Marketing view
     
 ## Usage
