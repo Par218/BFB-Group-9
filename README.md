@@ -94,13 +94,11 @@ The database includes realistic sample data for testing:
 
 ## File Structure
 
-The project has been restructured for a Flask environment:
-
 ├── app.py                  # Main application controller and route definitions
 ├── inventory.db            # SQLite database file
 ├── inventory.sql           # Database schema and sample data script
 ├── templates/              # HTML Templates (Jinja2)
-│   ├── base.html           # Base layout with navigation and flash messages
+│   ├── base.html           # Master layout template
 │   ├── index.html          # Main Dashboard
 │   ├── Login.html          # Authentication page
 │   ├── Register.html       # User registration
