@@ -33,7 +33,7 @@ Caleb Pillay u23528232
 1. Open command prompt/terminal in the project directory
 2. Run the SQL commands:
    ```bash
-   sqlite3 inventory_hub.db < inventory.sql
+   sqlite3 inventory.db < inventory.sql
    
 ## Database Schema
 
