@@ -189,3 +189,67 @@ def index():
 
     return render_template('index.html', email = username, active1=active1, **data)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        conn = get_db_connection()
+        curs = conn.cursor()
+        try:
+            vendor = curs.execute('SELECT * FROM vendors WHERE email = ? AND password = ?', (email, password)).fetchone()
+            if vendor:
+                session['loggedin'] = True
+                session['vendor_id'] = vendor['vendor_id']
+                session['email'] = vendor['email']
+                session['business_name'] = vendor['business_name']
+                flash('Login successful!', 'success')
+                return redirect(url_for('index'))
+            else:
+                flash('Invalid email or password', 'danger')
+        except sqlite3.OperationalError as e:
+            flash(f'Database error: {e}. Try restarting the application.', 'danger')
+        except Exception as e:
+            flash(f'An error occurred: {e}', 'danger')
+        finally:
+            conn.close()
+    return render_template('Login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        username = request.form.get('username') 
+        email = request.form.get('email')
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+        if password != password2:
+            flash('Passwords do not match', 'danger')
+            return redirect(request.url)
+        
+        conn = get_db_connection()
+        curs = conn.cursor()
+        try:
+            if conn.execute('SELECT 1 FROM vendors WHERE email = ?', (email,)).fetchone():
+                flash('Email already registered', 'danger')
+                return redirect(request.url)
+            elif not len(password) >= 8:
+                flash('Password must be at least 8 characters long', 'danger')
+                return redirect(request.url)
+            else:
+                business_name = username if username else f"{name} {surname} Business"
+                conn.execute('INSERT INTO vendors (first_name, last_name, business_name, email, password) VALUES (?, ?, ?, ?, ?)', (name, surname, business_name, email, password))
+                conn.commit()
+                flash('Successful Registration! Please log in.', 'success')
+                return redirect(url_for('login'))
+        except Exception as e: 
+            flash(f'Registration failed: {e}', 'danger')
+        finally:
+            conn.close()
+    return render_template('Register.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
