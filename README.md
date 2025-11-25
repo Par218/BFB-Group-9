@@ -80,15 +80,15 @@ note : this is the original ERD and the scope of the final database structure ha
 
 The database includes realistic sample data for testing:
 
-1.  **`vendors`**: Stores business owner credentials (email, password, business name).
-2.  **`customers`**: Stores client contact information (name, email, phone, address).
-3.  **`product_categories`**: Categorizes items (e.g., Electronics, Tools, Food).
-4.  **`products`**: Inventory items including SKU, prices (cost/sell), stock levels, and alert thresholds.
-5.  **`sales_orders`**: Header table for sales transactions (status: draft, pending, confirmed, shipped, delivered).
-6.  **`invoices`**: Financial records linking orders to customers.
-7.  **`invoice_items`**: Line items for invoices (links Products to Invoices).
-8.  **`manufacturing_jobs`**: Production jobs with start/due dates and progress percentages.
-9.  **`stock_updates`**: Audit trail for inventory adjustments (restock, sale, damage).
+1.  **`vendors`**: (email, password, business name)(('john.doe@techstore.com', 'password123', 'TechStore Solutions');
+2.  **`customers`**: (name, email, phone, address) (('ABC Corporation', 'contact@abccorp.com', '+1-555-0101', '123 Business Street, New York, NY 10001'))
+3.  **`product_categories`**: (e.g., Electronics, Tools, Food)
+4.  **`products`**: (SKU, prices (cost/sell), stock levels, and alert thresholds)('ELEC-001', 'Samsung Galaxy S23', 1, 25, 899.99, 650.00, 'Samsung Electronics)
+5.  **`sales_orders`**: (status: draft, pending, confirmed, shipped, delivered)('ORD-202401-002', 2, 2450.00, 'confirmed')
+6.  **`invoices`**: ('INV-202401-002', 2, 2450.00, 'paid')
+7.  **`invoice_items`**: (1, 3, 8, 249.00, 1992.00)
+8.  **`manufacturing_jobs`**: ('JOB-202401-002', 2, 30, 'in_progress', '2024-01-10', '2024-01-25', 65)
+9.  **`stock_updates`**: (4, 1, 'add', 20, 30, 50, 'restock', 'Monthly shoe inventory replenishment')
 
 ---
 
