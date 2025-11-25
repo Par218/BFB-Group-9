@@ -39,7 +39,7 @@ Caleb Pillay u23528232
 
 ### Entity Relationship Diagram (ERD)
 
-![ERD Diagram](Pictures/ERD.jpeg)
+<img width="1908" height="1248" alt="Project_ERD" src="https://github.com/user-attachments/assets/2b0cca06-f70f-48d2-bb5e-4f107d35453a" />
 
 
 
