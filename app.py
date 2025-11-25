@@ -352,3 +352,83 @@ def view_inventory():
                          low_stock_count=data['low_stock_count'], inventory_value=data['inventory_value'], categories=data['categories'], active4=active4,email=username)
 
 
+
+@app.route('/SalesAndMarketing.html')
+def view_sales_marketing():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+    else: 
+
+        data = get_dashboard_data()
+        username = session.get('business_name')
+        active1 = ''  # Dashboard
+        active2 = ''  # Logistics
+        active3 = 'active'  # Sales & Marketing
+        active4 = ''  # Inventory
+        active5 = ''  # Manufacturing
+
+    avg_order_value = (data['total_revenue'] / data['active_orders']) if data['active_orders'] > 0 else 0.0
+    return render_template('SalesAndMarketing.html', total_reach=38500, total_conversions=35200, sales_pipeline_value=80095.00, 
+                         total_revenue=data['total_revenue'], products_sold=data['products_sold'], recent_orders=data['recent_orders'], avg_order_value=avg_order_value, active3=active3,email=username)
+
+@app.route('/Manufacturing.html')
+def view_manufacturing():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+
+    else:
+        data = get_dashboard_data()
+
+        username = session.get('business_name')
+        active1 = ''  # Dashboard
+        active2 = ''  # Logistics
+        active3 = ''  # Sales & Marketing
+        active4 = ''  # Inventory
+        active5 = 'active'  # Manufacturing
+    conn = get_db_connection()
+    #jobs = conn.execute('SELECT mj.*, p.product_name FROM manufacturing_jobs mj LEFT JOIN products p ON mj.product_id = p.product_id ORDER BY mj.due_date').fetchall()
+
+    jobs = conn.execute(
+        """
+        SELECT 
+            j.job_id,
+            j.job_number,
+            p.sku,
+            p.product_name,
+            j.due_date,
+            j.status,
+            j.progress_percentage
+        FROM manufacturing_jobs j
+        JOIN products p ON j.product_id = p.product_id
+        ORDER BY j.due_date
+        """
+    ).fetchall()
+    
+    get_msg = request.args.get('msg')
+    conn.close()
+    return render_template('Manufacturing.html', jobs=jobs, msg=get_msg,active5=active5, email=username)
+    #return render_template('Manufacturing.html', active_jobs=data['active_jobs'], completed_jobs=data['complete_jobs'], scheduled_jobs=data['scheduled_jobs'], manufacturing_jobs=jobs, )
+
+@app.route('/Logistics.html')
+def view_logistics():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+
+    else:
+
+        data = get_dashboard_data()#Phathu edits
+        data = get_dashboard_data()
+        username = session.get('business_name')
+        active1 = ''  # Dashboard
+        active2 = 'active'  # Logistics
+        active3 = ''  # Sales & Marketing
+        active4 = ''  # Inventory
+        active5 = ''  # Manufacturing
+
+        conn = get_db_connection()#Jayden adds
+        pending = conn.execute('SELECT COUNT(*) FROM sales_orders WHERE status IN ("pending", "confirmed")').fetchone()[0] or 0
+        delivered = conn.execute('SELECT COUNT(*) FROM sales_orders WHERE status = "delivered"').fetchone()[0] or 0
+        shipments = conn.execute('SELECT order_number as shipment_number, status, c.name as destination, so.created_at FROM sales_orders so LEFT JOIN customers c ON so.customer_id = c.customer_id WHERE status IN ("shipped", "delivered", "pending", "confirmed") ORDER BY so.created_at DESC LIMIT 10').fetchall()
+    conn.close()
+    return render_template('Logistics.html', active_shipments=data['active_shipments'], pending_shipments=pending, delivered_shipments=delivered, recent_shipments=shipments, active2=active2, email=username)
+
+if __name__ == '__main__':
+    init_database()
+    app.run(debug=True)
