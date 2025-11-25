@@ -330,3 +330,25 @@ def generate_report():
     return redirect(url_for('index'))
 
 
+
+
+@app.route('/Inventory.html')
+def view_inventory():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+    else:
+
+        data = get_dashboard_data()
+        username = session.get('business_name')
+        active1 = ''  # Dashboard
+        active2 = ''  # Logistics
+        active3 = ''  # Sales & Marketing
+        active4 = 'active'  # Inventory
+        active5 = ''  # Manufacturing
+
+             
+           
+
+    return render_template('Inventory.html', inventory_data=data['products'], total_items=data['total_products'], 
+                         low_stock_count=data['low_stock_count'], inventory_value=data['inventory_value'], categories=data['categories'], active4=active4,email=username)
+
+
