@@ -172,3 +172,20 @@ def get_dashboard_data():
     return data
 
 # --- Routes ---
+
+@app.route('/')
+def index():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+
+    else:
+        data = get_dashboard_data()
+        username = session.get('business_name')
+        active1 = 'active'  # Dashboard
+        active2 = ''  # Logistics
+        active3 = ''  # Sales & Marketing
+        active4 = ''  # Inventory
+        active5 = ''  # Manufacturing
+
+
+    return render_template('index.html', email = username, active1=active1, **data)
+
