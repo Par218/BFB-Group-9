@@ -18,13 +18,13 @@ Caleb Pillay u23528232
 
 ## Features
 
-- **Dashboard**: Overview of key metrics, sales vs production analytics, and quick actions
-- **Inventory Management**: Track and manage stock levels, categories, and inventory value
-- **Sales & Marketing**: Monitor campaigns, leads, and sales performance
-- **Manufacturing**: Manage production schedules, job progress, and capacity utilization
-- **Logistics**: Track shipments, deliveries, and warehouse operations
-- **Customer Management**: Maintain customer database and create invoices
-- **Reporting**: Generate various business reports with date filtering
+* **Dynamic Dashboard**: Real-time overview of revenue, products sold, active orders, and completed jobs with percentage growth indicators.
+* **User Authentication**: Secure Login and Registration system for Vendors (Business Owners).
+* **Inventory Management**: Track stock levels, value, and categories. Includes visual alerts for low-stock and out-of-stock items.
+* **Sales & Invoicing**: Create invoices dynamically, managing customer associations and automatically deducting stock upon creation.
+* **Manufacturing**: Monitor production schedules, track job progress percentages, and view start/due dates.
+* **Logistics**: Track shipment statuses (Pending, In Transit, Delivered) and view recent shipment history.
+* **Reporting**: Generate Sales and Inventory reports (placeholder functionality).
 
 ## Database Setup
 
@@ -59,39 +59,57 @@ Caleb Pillay u23528232
 
 ## Views
 
-1. **Logistics_Dashboard**: Summary of logistics related data used to organize and coordinate logistics operations including shipments, orders, and customer information
-2. **Manufacturing_Dashboard**: Summary of manufacturing information including job schedules, quantities, due dates, and progress percentages for production planning
-3. **SalesMarketing_Dashboard**: Comprehensive view of sales data and performance metrics used for analysis, reporting, and business planning
+1.  **Logistics Dashboard (`Logistics.html`)**
+    * **Data Presented**: Summary of Pending Processing, Active Shipments, and Delivered Shipments. Includes a detailed table of recent shipments with status indicators and destination details.
+
+2.  **Manufacturing Dashboard (`Manufacturing.html`)**
+    * **Data Presented**: KPI cards for Active, Completed, and Scheduled jobs. Features a detailed job list including Job Number, Product, Start/Due Dates, and a visual progress bar for current status.
+
+3.  **Sales & Marketing Dashboard (`SalesAndMarketing.html`)**
+    * **Data Presented**: Metrics for Total Reach, Conversions, Sales Pipeline Value, and Total Revenue. Includes a breakdown of recent orders and average order value calculations.
+
+4.  **Inventory Dashboard (`Inventory.html`)**
+    * **Data Presented**: Total item counts, low stock alerts, and total inventory monetary value. The main view provides a searchable table of all products with category and stock status (In Stock/Low Stock/Out of Stock).
+
+5.  **Main Executive Dashboard (`index.html`)**
+    * **Data Presented**: Aggregates key metrics from all other modules (Revenue, Sales, Jobs, Orders) and provides quick access buttons for common tasks like invoicing and reporting.
+
+---
 
 ## Sample Data
 
 The database includes realistic sample data for testing:
 
-- **4 Users**: Admin, individual customers, and SME company
-- **2 Customers**: John Doe and Jane Doe with contact information
-- **1 Employee**: System Administrator
-- **1 SME Company**: ABC Industries in manufacturing sector
-- **3 Locations**: Warehouses in Johannesburg, Cape Town, and Durban
-- **3 Products**: Cream Donuts, Chocolate Chip Cookies, Whole Wheat Bread across different categories
-- **2 Sales Orders**: Sample transactions with realistic amounts
-- **2 Shipments**: Active shipments with tracking numbers
-- **2 Manufacturing Jobs**: Scheduled and in-progress production jobs
+1.  **`vendors`**: Stores business owner credentials (email, password, business name).
+2.  **`customers`**: Stores client contact information (name, email, phone, address).
+3.  **`product_categories`**: Categorizes items (e.g., Electronics, Tools, Food).
+4.  **`products`**: Inventory items including SKU, prices (cost/sell), stock levels, and alert thresholds.
+5.  **`sales_orders`**: Header table for sales transactions (status: draft, pending, confirmed, shipped, delivered).
+6.  **`invoices`**: Financial records linking orders to customers.
+7.  **`invoice_items`**: Line items for invoices (links Products to Invoices).
+8.  **`manufacturing_jobs`**: Production jobs with start/due dates and progress percentages.
+9.  **`stock_updates`**: Audit trail for inventory adjustments (restock, sale, damage).
+
+---
 
 ## File Structure
 
-```
-├── index.html # Main dashboard with analytics and quick actions
-├── Login.html # User authentication page
-├── Register.html # User registration page
-├── Inventory.html # Inventory management and tracking
-├── Logistics.html # Shipment and warehouse management
-├── Manufacturing.html # Production scheduling and job management
-├── SalesAndMarketing.html # Campaigns and sales performance tracking
-├── barChart.js # Chart.js implementation for analytics
-├── inventory.sql # Complete database schema and sample data
-└── README.md # This file
-```
+The project has been restructured for a Flask environment:
 
+├── app.py                  # Main application controller and route definitions
+├── inventory.db            # SQLite database file
+├── inventory.sql           # Database schema and sample data script
+├── templates/              # HTML Templates (Jinja2)
+│   ├── base.html           # Base layout with navigation and flash messages
+│   ├── index.html          # Main Dashboard
+│   ├── Login.html          # Authentication page
+│   ├── Register.html       # User registration
+│   ├── Inventory.html      # Stock management view
+│   ├── Logistics.html      # Shipment tracking view
+│   ├── Manufacturing.html  # Production job view
+│   └── SalesAndMarketing.html # Sales analytics view
+└── static/                 # Static assets
+    └── Pictures/           # Icons and images
 
 ## Usage
 
@@ -102,11 +120,10 @@ The database includes realistic sample data for testing:
 
 ## Technologies Used
 
-- **HTML5**: Structure and forms across all modules
-- **Bootstrap 5.3.8**: UI framework and responsive design
-- **Chart.js**: Interactive charts and analytics visualization
-- **SQLite**: Database for data persistence and relationships
-- **JavaScript**: Client-side functionality and chart rendering (the javascript is only there for graph demonstration purposes and will be removed)
+* **Backend**: Python, Flask (Microframework)
+* **Frontend**: HTML5, Jinja2 Templating, Bootstrap 5.3.8
+* **Database**: SQLite
+* **Visualization**: Chart.js (Dynamic data rendering)
 
 ## Browser Compatibility
 
