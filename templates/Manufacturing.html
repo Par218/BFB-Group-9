@@ -1,252 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logistics</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-<body>
-    <header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow" data-bs-theme="light">
-        <!--left sidebar-->
-        <div class="d-flex">
-            <!--Logo-->
-            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.html">
-                <img src="Pictures/Inventory Hub logo.png" alt="ERP logo" height="40" loading="lazy" style="margin-top: 2px; margin-left: 10px;">
-                <h4 style="margin-top: 7px; margin-left: 3px;">Inventory Hub</h4>
-            </a>
-        </div> 
-        <ul class="navbar-nav flex-row d-md-none"> <!--off canvas list that shows up when the screen is made smaller-->
-            <li class="nav-item text-nowrap"> 
-                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"> 
-                    <img src="Pictures/list_62dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="40" loading="lazy" style="margin-top: 2px; margin-left: 10px;"> 
-                </button> 
-            </li> 
-        </ul>
-    </header>
-    <div class="container-fluid">
-        <div class="row">
-            <!--sidebar-->
-            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary"> 
-                <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel"> 
-                    <div class="offcanvas-header"> 
-                        <h5 class="offcanvas-title" id="sidebarMenuLabel">Inventory Hub</h5> 
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
-                    </div> 
-                    <div class="offcanvas-body d-md-flex flex-column "> 
-                        <div class="list-group list-group-flush mx-3 mt-4">
-                            <a href="index.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary" aria-current="true">
-                                <img src="Pictures/Dashboard black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
-                                <span>Dashboard</span>
-                            </a>
-                            <a href="Logistics.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary ">
-                                <img src="Pictures/logistics black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
-                                <span>Logistics</span>
-                            </a>
-                            <a href="SalesAndMarketing.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
-                                <img src="Pictures/campaign_56dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
-                                <span>Marketing & Sales</span>
-                            </a>
-                            <a href="Inventory.html" class="list-group-item list-group-item-action py-2 ripple bg-body-tertiary">
-                                <img src="Pictures/shelves_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
-                                <span>Inventory</span>
-                            </a>
-                            <a href="Manufacturing.html" class="list-group-item list-group-item-action py-2 ripple active" style="border-radius: 12px;">
-                                <img src="Pictures/factory black.svg" alt="list" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
-                                <span>Manufacturing</span>
-                            </a>           
-                        </div>
-                        <hr>
-                        <div class="list-group list-group-flush mx-4 mt-1">
-                            <ul class="navbar-nav flex-row">
-                                <li class="nav-item dropdown me-3 me-lg-1">
-                                    <a data-bs-toggle="dropdown" class="nav-link hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-                                        <img src ="Pictures/account_circle_62dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="profile picture" height="30" loading="lazy" style="margin-top: 2px;">
-                                        <span>Account</span>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                        <li>
-                                            <a class="dropdown-item list-group-item-action" href="#">Profile</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item list-group-item-action" href="#">Settings</a>
-                                        </li>
-                                        <hr>
-                                        <li>
-                                            <a class="dropdown-item list-group-item-action" href="Login.html">Logout</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> 
-                </div> 
-            </div>
-            <main class = "col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                 <!--row for heading-->
-                <div class="row">
-                    <div class="col" style="margin-top: 2vh;">
-                        <h3>Manufacturing</h3>
-                        <h5>Monitor and manage production schedules</h5>
-                    </div>
-                </div>
-                <!--row for cards-->
-                <div class="row">
-                    <!--active jobs-->
-                    <div class="col-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h6>Active Jobs</h6>
-                                        <h4>88</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Completed this month-->
-                    <div class="col-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h6>Completed this month</h6>
-                                        <h4>324</h4>
-                                        <p style="font-size: 2vh; color: lightgreen;">+13% from last month</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Scheduled-->
-                    <div class="col-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h6>Scheduled</h6>
-                                        <h4> 12 </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--utilisation-->
-                    <div class="col-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h6>Capacity Utilisation</h6>
-                                        <p> 88% </p>
-                                        <p style="font-size: 2vh; color: lightgreen;">+3 from last month</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--manufacturing jobs-->
-                <div class="row" style="margin-top: 4vh; width: auto;">
-                    <h4> Manufacturing Jobs </h4>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row" ><!--production plan ID and due date(based on end date)-->
-                                <div class="col-10" >
-                                    <span > JOB-001 </span>
-                                </div>
-                                <div class="col-2"> Due : 2025/11/01</div>
-                            </div> 
-                            <div class="row"  style=" margin-top: 1%;">
-                                <h5> SKU-004 </h5>
-                            </div> <!--product name-->
-                            <div class="row" style="width: 8%; margin-top: 0.5%;">
-                                <span class="badge bg-info">in-progress</span>
-                            </div> <!--progress status-->
-                            <div class="row"  style=" margin-top: 1%;"> <!--progress bar(based on start and end date)-->
-                                <div class="progress" role="progressbar" aria-label="Manufacturing progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style=" margin-top: 1%;">
-                                    <div class="progress-bar " style="width: 25%;">25%</div>
-                                </div>
-                                <span> 25% complete</span>
-                            </div>
-                            <div class="row"> <!--details and progress changer-->
-                                <div class="col" style="margin-top: 1%;">
-                                    <button type="button" class="btn btn-tertiary btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#viewDetails"> View Details</button>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#progressUpdate"> Update Progress </button>
-                                    <!--modals for details and progress-->
-                                    <div class="modal fade" id="viewDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Details</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <span> Planned by :  </span>
-                                                    </div>
-                                                    <div class="row">
-                                                        <span> Planned Quantity : </span>
-                                                    </div>
-                                                    <div class="row">
-                                                        <span> Start Date : </span>
-                                                    </div>
-                                                    <div class="row">
-                                                        <span> End Date : </span>
-                                                    </div>
-                                                    <div class="row">
-                                                        <span> Current Status : </span>
-                                                    </div>     
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="progressUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Job Progress</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <span> </span>
-                                                    </div>
-                                                    <label for="reportType" class="form-label">Job status</label>
-                                                    <select class="form-select" aria-label="Default select example" id="reportType">
-                                                        <option selected></option>
-                                                        <option value="1">In progress</option>
-                                                        <option value="2">Completed</option>
-                                                        <option value="3">Canceled</option>
-                                                    </select>
-                                                    <div class="row" style="margin-top: 2%;">
-                                                    </div>
-                                                </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-primary">
-                                                    Submit
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>        
-                </div>
-            </main>
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col" style="margin-top: 2vh;">
+            <h3>Manufacturing</h3>
+            <h5>Monitor and manage production schedules</h5>
         </div>
-    </div> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
-</html>
+    </div>
+    
+    <!-- KPI Cards -->
+    <div class="row">
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Active Jobs</h6>
+                            <h4>{{ active_jobs }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Completed Jobs</h6>
+                            <h4>{{ completed_jobs }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Scheduled</h6>
+                            <h4> {{ scheduled_jobs }} </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Capacity Utilisation</h6>
+                            <h4>85%</h4>
+                            <small class="text-success">Optimal</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Jobs List -->
+    <div class="row" style="margin-top: 4vh;">
+        <h4>Manufacturing Jobs</h4>
+    
+        <div class="card">
+            <div class="card-body">
+                {% if manufacturing_jobs %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Job #</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Start Date</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in manufacturing_jobs %}
+                            <tr>
+                                <td><strong>{{ job.job_number }}</strong></td>
+                                <td>{{ job.product_name }}</td>
+                                <td>{{ job.quantity }}</td>
+                                <td>
+                                    {% if job.status == 'completed' %}
+                                    <span class="badge bg-success">Completed</span>
+                                    {% elif job.status == 'in_progress' %}
+                                    <span class="badge bg-primary">In Progress</span>
+                                    {% elif job.status == 'scheduled' %}
+                                    <span class="badge bg-info text-dark">Scheduled</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">{{ job.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td style="width: 15%;">
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar {% if job.status == 'completed' %}bg-success{% endif %}"
+                                            role="progressbar" style="width: {{ job.progress_percentage }}%;"
+                                            aria-valuenow="{{ job.progress_percentage }}" aria-valuemin="0"
+                                            aria-valuemax="100">
+                                            {{ job.progress_percentage }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ job.start_date }}</td>
+                                <td>{{ job.due_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info text-center" role="alert" style="margin-top: 10px;">
+                    No manufacturing job data is available.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
