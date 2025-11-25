@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+</head>
+<body>
+    <header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow" data-bs-theme="light">
+        <div class="d-flex">
+            <!--Company Logo-->
+            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="{{url_for('index')}}">
+                <img src="/static/Pictures/Inventory Hub logo.png" alt="ERP logo" height="40" loading="lazy" style="margin-top: 2px; margin-left: 10px;">
+                <h4 style="margin-top: 7px; margin-left: 3px;">Inventory Hub</h4>
+            </a>
+        </div> 
+        <ul class="navbar-nav flex-row d-md-none"> <!--off canvas list that shows up when the screen is made smaller-->
+            <li class="nav-item text-nowrap"> 
+                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"> 
+                    <img src="/static/Pictures/Pictures/list_62dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" alt="list" height="40" loading="lazy" style="margin-top: 2px; margin-left: 10px;"> 
+                </button> 
+            </li> 
+        </ul>
+    </header>
+    <div class="container-fluid"><!--everything below the header-->
+        <div class="row">
+            <!--sidebar-->
+            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary"> 
+                <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel"> 
+                    <div class="offcanvas-header"> 
+                        <h5 class="offcanvas-title" id="sidebarMenuLabel">Inventory Hub</h5> 
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+                    </div> 
+                    <div class="offcanvas-body d-md-flex flex-column bg-body-tertiary"> 
+                        <div class="list-group list-group-flush mx-3 mt-4 bg-body-tertiary">
+                            <a href="{{url_for('index')}}" class="list-group-item list-group-item-action py-2 {{active1}}" aria-current="true"  style="border-radius: 12px;">
+                                <img src="/static/Pictures/Dashboard black.svg" alt="dashboard icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="{{url_for('view_logistics')}}" class="list-group-item list-group-item-action py-2 {{active2}}" aria-current="true"  style="border-radius: 12px;">
+                                <img src="/static/Pictures/logistics black.svg" alt="logistics icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <span>Logistics</span>
+                            </a>
+                            <a href="{{url_for('view_sales_marketing')}}" class="list-group-item list-group-item-action py-2 {{active3}}" style="border-radius: 12px;">
+                                <img src="/static/Pictures/campaign_56dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="sales-marketing icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <span>Marketing & Sales</span>
+                            </a>
+                            <a href="{{url_for('view_inventory')}}" class="list-group-item list-group-item-action py-2 {{active4}}" aria-current="true"  style="border-radius: 12px;">
+                                <img src="/static/Pictures/shelves_64dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="inventory icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <span>Inventory</span>
+                            </a>
+                            <a href="{{url_for('view_manufacturing')}}" class="list-group-item list-group-item-action py-2 {{active5}}" aria-current="true"  style="border-radius: 12px;">
+                                <img src="/static/Pictures/factory black.svg" alt="manufacturing icon" height="30" loading="lazy" style="margin-top: 5px; margin-left: -5px;">
+                                <span>Manufacturing</span>
+                            </a>           
+                        </div>
+                        <hr>
+                        <div class="list-group list-group-flush mx-4 mt-1">
+                            <ul class="navbar-nav flex-row">
+                                <li class="nav-item dropdown me-3 me-lg-1">
+                                    <a data-bs-toggle="dropdown" class="nav-link hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false" style="margin-left: auto;">
+                                        <img src ="/static/Pictures/account_circle_62dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="profile picture" height="30" loading="lazy" style="margin-top: 1px;">
+                                        <span >{{email}}</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                        <li>
+                                            <a class="dropdown-item list-group-item-action" href="#">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item list-group-item-action" href="#">Settings</a>
+                                        </li>
+                                        <hr>
+                                        <li>
+                                            <a class="dropdown-item list-group-item-action" href="{{url_for('logout')}}">Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
+                </div> 
+            </div>
+            
+            
+            <main class = "col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <span> {{ message }}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block content %}
+
+                {% endblock %}
+            </main>
+            
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous" class="astro-vvvwv3sm"></script>
+    <script src="barChart.js"></script>
+    
+</body>
+</html>
