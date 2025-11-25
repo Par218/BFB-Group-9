@@ -253,3 +253,80 @@ def register():
 def logout():
     session.clear()
     return redirect(url_for('login'))
+# --- Data Modification Routes ---
+
+@app.route('/add_customer', methods=['POST'])
+def add_customer():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+    conn = get_db_connection()
+    try:
+        conn.execute('INSERT INTO customers (name, email, phone, address) VALUES (?, ?, ?, ?)', 
+                     (request.form.get('customerName'), request.form.get('customerEmail'), request.form.get('customerPhone'), request.form.get('customerAddress')))
+        conn.commit()
+    finally:
+        conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/create_invoice', methods=['POST'])
+def create_invoice():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+    conn = get_db_connection()
+    try:
+        customer_id = request.form.get('customer_id')
+        if not customer_id: return redirect(url_for('index'))
+        items = []
+        total = 0
+        products = conn.execute('SELECT * FROM products').fetchall()
+        for p in products:
+            qty = int(request.form.get(f'product_{p["product_id"]}', 0))
+            if qty > 0:
+                if qty > p['quantity']:
+                    flash(f'Insufficient stock: {p["product_name"]}', 'error')
+                    return redirect(url_for('index'))
+                total += qty * p['price']
+                items.append((p, qty, qty * p['price']))
+        
+        if items:
+            inv_num = generate_invoice_number()
+            cur = conn.execute('INSERT INTO invoices (invoice_number, customer_id, total_amount, status) VALUES (?, ?, ?, ?)', (inv_num, customer_id, total, 'created'))
+            inv_id = cur.lastrowid
+            for p, qty, line_total in items:
+                conn.execute('INSERT INTO invoice_items (invoice_id, product_id, quantity, unit_price, total_price) VALUES (?, ?, ?, ?, ?)', (inv_id, p['product_id'], qty, p['price'], line_total))
+                conn.execute('UPDATE products SET quantity = quantity - ? WHERE product_id = ?', (qty, p['product_id']))
+            conn.execute('INSERT INTO sales_orders (order_number, customer_id, total_amount, status) VALUES (?, ?, ?, ?)', (f"ORD-{inv_num.split('-')[1]}-{inv_num.split('-')[2]}", customer_id, total, 'confirmed'))
+            conn.commit()
+            flash(f'Invoice {inv_num} created.', 'success')
+    finally:
+        conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/add_stock', methods=['POST'])
+def add_stock():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+    try:
+        sku = f"PROD-{random.randint(1000, 9999)}"
+        conn = get_db_connection()
+        conn.execute('INSERT INTO products (sku, product_name, category_id, quantity, price, cost_price, description) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                     (sku, request.form.get('stockName'), request.form.get('stockCategory'), int(request.form.get('stockQuantity', 0)), 
+                      request.form.get('stockSellPrice'), request.form.get('stockCostPrice'), request.form.get('stockDescription', '')))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        flash(f'Error: {e}', 'error')
+    return redirect(request.referrer or url_for('index'))
+
+@app.route('/add_category', methods=['POST'])
+def add_category():
+    if not session.get('loggedin'): return redirect(url_for('login'))
+    conn = get_db_connection()
+    conn.execute('INSERT INTO product_categories (category_name, category_description) VALUES (?, ?)', 
+                 (request.form.get('categoryName'), request.form.get('categoryDescription')))
+    conn.commit()
+    conn.close()
+    return redirect(request.referrer or url_for('index'))
+
+@app.route('/generate_report', methods=['POST'])
+def generate_report():
+    return redirect(url_for('index'))
+
+
