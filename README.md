@@ -40,21 +40,21 @@ Caleb Pillay u23528232
 ### Entity Relationship Diagram (ERD)
 
 <img width="1908" height="1248" alt="Project_ERD" src="https://github.com/user-attachments/assets/2b0cca06-f70f-48d2-bb5e-4f107d35453a" />
+note : this is the original ERD and the scope of the final database structure has been scaled back. The final tables used in the program are shown below.
 
 
 
 ## Tables
 
-1. **User**: Central table recording all users (employees, customers, SME companies) with authentication and security details
-2. **Customer**: Child table of User, recording individual customer specific details and contact information
-3. **Employee**: Child table of User, recording employee specific information including position and employment details
-4. **SME_Company**: Child table of User, recording client/partner companies and their business information
-5. **Location**: Table recording all physical locations including warehouses, customer addresses, and supplier locations
-6. **Product**: Table recording all products offered through the system with pricing, categories, and measurement units
-7. **Sales_Order**: Table recording all sales orders with customer/company information, order status, and total amounts
-8. **Order_Items**: Junction table linking sales orders to products with quantities and pricing
-9. **Inventory**: Table tracking current inventory levels across different locations
-10. **Shipment**: Table tracking and recording shipments for sales orders with status and tracking information
+1.  **`vendors`**: Stores business owner credentials (email, password, business name).
+2.  **`customers`**: Stores client contact information (name, email, phone, address).
+3.  **`product_categories`**: Categorizes items (e.g., Electronics, Tools, Food).
+4.  **`products`**: Inventory items including SKU, prices (cost/sell), stock levels, and alert thresholds.
+5.  **`sales_orders`**: Header table for sales transactions (status: draft, pending, confirmed, shipped, delivered).
+6.  **`invoices`**: Financial records linking orders to customers.
+7.  **`invoice_items`**: Line items for invoices (links Products to Invoices).
+8.  **`manufacturing_jobs`**: Production jobs with start/due dates and progress percentages.
+9.  **`stock_updates`**: Audit trail for inventory adjustments (restock, sale, damage).
 
 
 ## Views
